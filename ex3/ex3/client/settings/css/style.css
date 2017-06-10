@@ -1,0 +1,20 @@
+﻿.left-form{
+    float:left;
+    max-width: 50%;
+    margin-left:10%;
+}
+
+.option-style{
+    padding: .25rem .5rem;
+    font-size: .875rem;
+    border-radius: .2rem;
+}
+
+.txt-title{
+    margin-bottom:5%;
+    margin-top:2%;
+}
+
+.saved-txt{
+    margin-left:11%;
+}

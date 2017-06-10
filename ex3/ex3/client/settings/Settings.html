@@ -1,0 +1,65 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>settings</title>
+	<meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../bootstrap/meyer-reset/reset.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="../page/css/page-style.css">
+    <link rel="stylesheet" href="../bootstrap/bootstrap-4.0.0-alpha.6/css/bootstrap.min.css">
+</head>
+<body>
+    <div id='header'></div>
+    <div class="box-title">
+        <h2>Settings</h2>
+        <hr class="style1">
+    </div>
+    <div class="left-form">
+        <div class="container" id="form-settings">
+            <div class="txt-title">
+                <h4>Choose your default settings</h4>
+            </div>
+            <form id="settings">
+                <div class="form-group row">
+                    <label class="col-sm-2 col-form-label col-form-label-sm" for="number">Rows Number</label>
+                    <div class="col-sm-10">
+                        <input type="number" class="form-control form-control-sm" id="rows" placeholder="10" min="1" max="100" required="required">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-2 col-form-label col-form-label-sm" for="number">Cols Number</label>
+                    <div class="col-sm-10">
+                        <input type="number" class="form-control form-control-sm" id="cols" placeholder="10" min="1" max="100" required="required">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-2 col-form-label col-form-label-sm" for="text">Search Algo</label>
+                    <div class="dropdown col-sm-10">
+                        <select id="algo" class="btn btn-secondary btn-sm" required="required">
+                            <option value="0" selected>Bfs</option>
+                            <option value="1">Dfs</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="offset-sm-2 col-sm-10">
+                        <button type="submit" value="saved settings" id="btnSaveSettings" class="btn btn-secondary btn-sm">Save Settings</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div id="settings-saved" style="display:none">
+        <div class="txt-title saved-txt">
+            <h4>Settings saved successfully</h4>
+        </div>
+    </div>
+    
+    <script src="../Scripts/jquery-3.1.1.js"></script>
+    <script src="../header/js/loadHeader.js"></script>
+    <script src="../bootstrap-4.0.0-alpha.6/js/bootstrap.min.js"></script>
+    <script src="../settings/js/settings.js">
+    </script>
+</body>
+</html>

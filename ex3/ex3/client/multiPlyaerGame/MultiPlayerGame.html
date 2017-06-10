@@ -1,0 +1,72 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+	<meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../bootstrap/meyer-reset/reset.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="../page/css/page-style.css">
+    <link rel="stylesheet" href="../bootstrap/bootstrap-4.0.0-alpha.6/css/bootstrap.min.css">
+</head>
+<body>
+    <div id='header'></div>
+    <div class="box-title">
+        <h2>Multiplayer Game</h2>
+        <hr class="style1">
+    </div>
+    <div class="left-form">
+        <div class="container">
+            <form id="join-game">
+                <div class="form-group row">
+                    <label class="col-sm-2 col-form-label col-form-label-sm" for="text">Games</label>
+                    <div class="dropdown col-sm-10">
+                        <select class="btn btn-secondary btn-sm">
+
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="offset-sm-2 col-sm-10">
+                        <button type="button" class="btn btn-secondary btn-sm">Join Game</button>
+                    </div>
+                </div>
+            </form>
+            <div class="txt-title">
+                <hr class="style1">
+                <h4>Start New Game</h4>
+            </div>
+            <form id="start-game">
+                <div class="form-group row">
+                    <label class="col-sm-2 col-form-label col-form-label-sm" for="text">Name</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control form-control-sm" id="name" placeholder="mymaze">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-2 col-form-label col-form-label-sm" for="number">Rows</label>
+                    <div class="col-sm-10">
+                        <input type="number" class="form-control form-control-sm" id="rows" placeholder="10" min="1" max="100">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-2 col-form-label col-form-label-sm" for="number">Cols</label>
+                    <div class="col-sm-10">
+                        <input type="number" class="form-control form-control-sm" id="cols" placeholder="10" min="1" max="100">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="offset-sm-2 col-sm-10">
+                        <button type="button" class="btn btn-secondary btn-sm">Start Game</button>
+                    </div>
+                </div>
+            </form>
+
+        </div>
+    </div>
+    <script src="../Scripts/jquery-3.1.1.js"></script>
+    <script src="../header/js/loadHeader.js"></script>
+    <script src="../bootstrap-4.0.0-alpha.6/js/bootstrap.min.js"></script>
+    <script src="../multiPlyaerGame/js/multiplayer.js"></script>
+</body>
+</html>

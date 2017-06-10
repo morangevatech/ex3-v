@@ -1,0 +1,73 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+	<meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../bootstrap/meyer-reset/reset.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="../page/css/page-style.css">
+    <link rel="stylesheet" href="../bootstrap/bootstrap-4.0.0-alpha.6/css/bootstrap.min.css">
+</head>
+<body>
+    <div id='header'></div>
+    <div class="box-title">
+        <h2>Single Player</h2>
+        <hr class="style1">
+    </div>   
+    <div class="left-form">
+        <div class="container">
+            <form id="generate-maze">
+                <div class="form-group row">
+                    <label class="col-sm-2 col-form-label col-form-label-sm" for="text">Name</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control form-control-sm error" id="name" placeholder="mymaze" required="required"/>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-2 col-form-label col-form-label-sm" for="number">Rows</label>
+                    <div class="col-sm-10">
+                        <input type="number" class="form-control form-control-sm" id="rows" placeholder="10" min="1" max="100" required="required"/>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-2 col-form-label col-form-label-sm" for="number">Cols</label>
+                    <div class="col-sm-10">
+                        <input type="number" class="form-control form-control-sm" id="cols" placeholder="10" min="1" max="100" required="required"/>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="offset-sm-2 col-sm-10">
+                        <button type="button" id="btnGenerateMaze" value="Generate Maze" class="btn btn-secondary btn-sm">Start New Game</button>
+                    </div>
+                </div>
+
+                <div><hr class="style1"></div>
+                <div class="form-group row">
+                    <label class="col-sm-2 col-form-label col-form-label-sm" for="text">Search Algo</label>
+                    <div class="dropdown col-sm-10">
+                        <select id="algo" class="btn btn-secondary btn-sm" required="required">
+                            <option value="0" selected>Bfs</option>
+                            <option value="1">Dfs</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="offset-sm-2 col-sm-10">
+                        <button type="button" id="btnSolveMaze" value="Solve Maze" class="btn btn-secondary btn-sm">Solve Game</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div id="canvas-div" class="canvas-left" style="display:none">
+        <canvas id="mazeCanvas" size="300" width="400" height="400" style="border:2px black solid"></canvas>
+    </div>
+    <script src="../Scripts/jquery-3.1.1.js"></script>
+    <script src="../header/js/loadHeader.js"></script>
+    <script src="../bootstrap-4.0.0-alpha.6/js/bootstrap.min.js"></script>
+    <script src="../page/js/jquery.mazeBoard.js"></script>
+    <script src="../singlePlayerGame/js/singlePlayer.js"></script>    
+    <script src="../bootstrap/jquery-validation-1.16.0/dist/jquery.validate.js"></script>
+</body>
+</html>

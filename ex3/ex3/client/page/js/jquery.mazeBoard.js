@@ -20,13 +20,14 @@
         var player_image = new Image();
         player_image.src = "../page/img/pokeball.png";      
         player_image.onload = function () {
-            context.drawImage(player_image, cellHeight * maze.InitialPosCol, cellWidth * maze.InitialPosRow, cellWidth, cellHeight);
+            context.drawImage(player_image, cellWidth * maze.InitialPosCol,cellHeight * maze.InitialPosRow, cellWidth,cellHeight);
         };
         var goal_image = new Image();
         goal_image.src = "../page/img/jigglypuff.png";
         goal_image.onload = function () {
-            context.drawImage(goal_image, cellHeight * maze.GoalPosCol, cellWidth * maze.GoalPosRow, cellWidth, cellHeight);
-        };    
+            context.drawImage(goal_image, cellWidth * maze.GoalPosCol, cellHeight * maze.GoalPosRow, cellWidth, cellHeight);
+        };
+        
         addKeyboardListener();
         function moveSelection(e) {
             switch (e.keyCode) {
@@ -50,11 +51,11 @@
         };
 
         function clearPlayer() {
-            context.clearRect(currntStateCol * cellHeight, currntStateRow * cellWidth, cellWidth, cellHeight);
+            context.clearRect(currntStateCol * cellWidth, currntStateRow * cellHeight, cellWidth, cellHeight);
         };
 
         function drawPlayer() {
-            context.drawImage(player_image, currntStateCol * cellHeight, currntStateRow * cellWidth, cellWidth, cellHeight);
+            context.drawImage(player_image, currntStateCol * cellWidth, currntStateRow * cellHeight, cellWidth, cellHeight);
         };
 
         function checkIfWinner() {
@@ -107,15 +108,53 @@
             }               
         };
 
+        function resetCurrntState() {
+            currntStateRow = maze.InitialPosRow;
+            currntStateCol = maze.InitialPosCol;
+        };
 
+        $.fn.solveMaze = function (solution) {          
+            var path = solution.MazeSolution;
+            removeKeyboardListener();
+            clearPlayer();
+            resetCurrntState();
+            drawPlayer();
+            for (i = 0; i < path.length; i++) {
+                doSetTimeout(path[i],i);
+            }
+
+            function doSetTimeout(index,i) {
+                setTimeout(function () { moveAnimation(index); }, i*130);
+            };
+
+            function moveAnimation(index) {
+                    switch (index) {
+                        case '0':
+                            //alert(0);
+                            leftArrowPressed();
+                            break;
+                        case '1':
+                            //alert(1);
+                            rightArrowPressed();
+                            break;
+                        case '2':
+                            //alert(2);
+                            upArrowPressed();
+                            break;
+                        case '3':
+                            //alert(3);
+                            downArrowPressed();
+                            break;
+                    }
+            };
+
+            return this;
+        };
 
         return this;
     };
-
-    $.fn.mazeBoard.solveMaze = function () {
-        alert("soosososo");
-    };
 })(jQuery);
+
 
 
 

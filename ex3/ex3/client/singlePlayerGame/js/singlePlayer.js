@@ -28,14 +28,14 @@ if (localStorage.getItem("algo") != null) {
                 "\nInitialPosCol: " + maze.InitialPosCol +
                 "\nGoalPosRow: " + maze.GoalPosRow +
                 "\nGoalPosCol: " + maze.GoalPosCol +
-                "\nMazePath: " + maze.MazePath);*/          
+                "\nMazePath: " + maze.MazePath);*/ 
             document.getElementById("mazeCanvas").tabIndex = 0;
             $("#mazeCanvas").mazeBoard(maze);
             $("#canvas-div").show();
             document.getElementById("mazeCanvas").focus();
         })
     })
-    })(jQuery);    $("#btnSolveMaze").click(function () {
+        $("#btnSolveMaze").click(function () {
         var apiUrl = "../../api/Single/SolveMaze";
         var solution = {
         Name: $("#name").val(),
@@ -44,9 +44,10 @@ if (localStorage.getItem("algo") != null) {
     };
     $.get(apiUrl, { Name: solution.Name, Algo: solution.Algo })
     .done(function (solution) {
-        alert("Name: " + solution.Name +
+        /*alert("Name: " + solution.Name +
              "\nAlgo: " + solution.Algo +
-             "\nMazeSolution: " + solution.MazeSolution);
-        
+             "\nMazeSolution: " + solution.MazeSolution);*/
+        $("mazeCanvas").solveMaze(solution);
     })
-});
+    })
+})(jQuery);

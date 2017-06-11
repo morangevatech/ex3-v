@@ -1,8 +1,7 @@
 ﻿(function ($) {
     $.fn.mazeBoard = function (maze) {
         var myCanvas = this[0];
-        var context = myCanvas.getContext("2d");
-        context.clearRect(0, 0, myCanvas.width, myCanvas.height);
+        var context = myCanvas.getContext("2d");      
         var rows = maze.Rows;
         var cols = maze.Cols;
         var currntStateRow = maze.InitialPosRow;
@@ -10,25 +9,31 @@
         var flag=false;
         var cellWidth = myCanvas.width / cols;
         var cellHeight = myCanvas.height / rows;       
-        for (var i = 0; i < rows; i++) {
-            for (var j = 0; j < cols; j++) {
+        var player_image = new Image();
+        var goal_image = new Image();        
+        drawMaze();
+        addKeyboardListener();
+        checkIfWinner();
+
+        function drawMaze() {
+            context.clearRect(0, 0, myCanvas.width, myCanvas.height);
+            for (var i = 0; i < rows; i++) {
+                for (var j = 0; j < cols; j++) {
                     if (maze.MazePath[i * cols + j] == 1) {
                         context.fillRect(cellWidth * j, cellHeight * i, cellWidth, cellHeight);
                     }
                 }
-        }
-        var player_image = new Image();
-        player_image.src = "../page/img/pokeball.png";      
-        player_image.onload = function () {
-            context.drawImage(player_image, cellWidth * maze.InitialPosCol,cellHeight * maze.InitialPosRow, cellWidth,cellHeight);
+            }
+            player_image.src = "../page/img/pokeball.svg";
+            player_image.onload = function () {
+                context.drawImage(player_image, cellWidth * maze.InitialPosCol, cellHeight * maze.InitialPosRow, cellWidth, cellHeight);
+            };
+            goal_image.src = "../page/img/jigglypuff.svg";
+            goal_image.onload = function () {
+                context.drawImage(goal_image, cellWidth * maze.GoalPosCol, cellHeight * maze.GoalPosRow, cellWidth, cellHeight);
+            };
         };
-        var goal_image = new Image();
-        goal_image.src = "../page/img/jigglypuff.png";
-        goal_image.onload = function () {
-            context.drawImage(goal_image, cellWidth * maze.GoalPosCol, cellHeight * maze.GoalPosRow, cellWidth, cellHeight);
-        };        
-        addKeyboardListener();
-        checkIfWinner();
+
         function moveSelection(e) {
             switch (e.keyCode) {
                 case 37:
@@ -64,8 +69,17 @@
 
         function checkIfWinner() {
             if (currntStateCol == maze.GoalPosCol && currntStateRow == maze.GoalPosRow) {
-                setTimeout(function () { alert("winner!") }, 100);
-                removeKeyboardListener();
+                setTimeout(function () {
+                    removeKeyboardListener();
+                    context.clearRect(0, 0, myCanvas.width, myCanvas.height);
+                    var winner_image = new Image();
+                    winner_image.src = "../page/img/crown.svg";
+                    winner_image.onload = function () {
+                        context.drawImage(winner_image, 50, 100, myCanvas.width - 90, myCanvas.height - 100);
+                    };
+                    context.font = "72px Arial"
+                    context.fillText("Winner", 100, 100);
+                }, 200);              
             }
         };
 
@@ -117,11 +131,9 @@
             currntStateCol = maze.InitialPosCol;
         };
 
-        $.fn.restartMaze = function () {           
-            clearPlayer();
+        $.fn.restartMaze = function () {
             resetCurrntState();
-            drawPlayer();
-            drawGoal();
+            drawMaze();
             addKeyboardListener();
             checkIfWinner();
             return this;
@@ -130,13 +142,21 @@
         $.fn.solveMaze = function (solution) {          
             var path = solution.MazeSolution;
             removeKeyboardListener();
-            clearPlayer();
             resetCurrntState();
-            drawPlayer();
-            drawGoal();
+            drawMaze();
             for (i = 0; i < path.length; i++) {
                 doSetTimeout(path[i],i);
             }
+            setTimeout(function () {
+                context.clearRect(0, 0, myCanvas.width, myCanvas.height);
+                var endAnimation_image = new Image();
+                endAnimation_image.src = "../page/img/compass.svg";
+                endAnimation_image.onload = function () {
+                    context.drawImage(endAnimation_image, 100, 150, myCanvas.width-200, myCanvas.height-200);
+                };
+                context.font = "32px Arial"
+                context.fillText("Animation Ended", 75, 100);
+            }, path.length * 130);
 
             function doSetTimeout(index,i) {
                 setTimeout(function () { moveAnimation(index); }, i*130);

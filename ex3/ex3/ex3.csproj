@@ -160,11 +160,13 @@
     <Content Include="client\multiPlyaerGame\js\multiPlayer.js" />
     <Content Include="client\multiPlyaerGame\MultiPlayerGame.html" />
     <Content Include="client\page\css\page-style.css" />
+    <Content Include="client\page\img\compass.svg" />
+    <Content Include="client\page\img\crown.svg" />
+    <Content Include="client\page\img\jigglypuff.svg" />
     <Content Include="client\page\img\loading.gif" />
+    <Content Include="client\page\img\pokeball.svg" />
     <Content Include="client\page\js\jquery.mazeBoard.js" />
     <None Include="client\Scripts\jquery-3.1.1.intellisense.js" />
-    <Content Include="client\page\img\jigglypuff.png" />
-    <Content Include="client\page\img\pokeball.png" />
     <Content Include="client\page\js\validation.js" />
     <Content Include="client\Scripts\jquery-3.1.1.js" />
     <Content Include="client\Scripts\jquery-3.1.1.min.js" />

@@ -26,9 +26,9 @@
         goal_image.src = "../page/img/jigglypuff.png";
         goal_image.onload = function () {
             context.drawImage(goal_image, cellWidth * maze.GoalPosCol, cellHeight * maze.GoalPosRow, cellWidth, cellHeight);
-        };
-        
+        };        
         addKeyboardListener();
+        checkIfWinner();
         function moveSelection(e) {
             switch (e.keyCode) {
                 case 37:
@@ -64,7 +64,7 @@
 
         function checkIfWinner() {
             if (currntStateCol == maze.GoalPosCol && currntStateRow == maze.GoalPosRow) {
-                alert("winner");
+                setTimeout(function () { alert("winner!") }, 100);
                 removeKeyboardListener();
             }
         };
@@ -117,12 +117,13 @@
             currntStateCol = maze.InitialPosCol;
         };
 
-        $.fn.restartMaze = function () {
-            addKeyboardListener();
+        $.fn.restartMaze = function () {           
             clearPlayer();
             resetCurrntState();
             drawPlayer();
             drawGoal();
+            addKeyboardListener();
+            checkIfWinner();
             return this;
         };
 

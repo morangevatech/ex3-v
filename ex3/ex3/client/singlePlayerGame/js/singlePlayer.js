@@ -1,4 +1,5 @@
 ﻿src = "../page/js/jquery.mazeBoard.js";
+src= "../page/js/validation.js";
 
 document.title = "Singal Game";
 $("#rows").val(localStorage.getItem("rows"));
@@ -9,7 +10,9 @@ if (localStorage.getItem("algo") != null) {
 
 (function ($) {   
     $("#btnGenerateMaze").click(function () {
-        var animated = true;
+        if (!generateValid()) {
+            return false;
+        }
         $("#loading-maze").show();
         var apiUrl = "../../api/Single/GenerateMaze";
         var maze = {
@@ -42,7 +45,10 @@ if (localStorage.getItem("algo") != null) {
     
         })
     })
-        $("#btnSolveMaze").click(function () {
+      $("#btnSolveMaze").click(function () {
+        if (!checkNameValid()) {
+            return false;
+        }
         var apiUrl = "../../api/Single/SolveMaze";
         var solution = {
         Name: $("#name").val(),
@@ -54,13 +60,77 @@ if (localStorage.getItem("algo") != null) {
             /*alert("Name: " + solution.Name +
                  "\nAlgo: " + solution.Algo +
                  "\nMazeSolution: " + solution.MazeSolution);*/
+            if (document.title != solution.Name)
+            {
+                alert("Error: can't solve another game, you are play in game named " + document.title);
+                return false;
+            }
             $("mazeCanvas").solveMaze(solution);
         })
+        .fail(function () {
+            alert("Error: name of maze doesn't exist at maze single player pool");
+        });
     })
 
     $("#btnRestartMaze").click(function(){
         $("mazeCanvas").restartMaze();
         document.getElementById("mazeCanvas").focus();
     })
+
+    $("#name").focus(function () {
+        document.getElementById("name-div").className = "form-group row";
+        document.getElementById("name").className="form-control form-control-sm";
+    })
+
+    $("#rows").focus(function () {
+        document.getElementById("rows-div").className = "form-group row";
+        document.getElementById("rows").className = "form-control form-control-sm";
+        $("#errorRowsRange").hide();
+    })
+
+    $("#cols").focus(function () {
+        document.getElementById("cols-div").className = "form-group row";
+        document.getElementById("cols").className = "form-control form-control-sm";
+        $("#errorColsRange").hide();
+    })
+
+    function checkNameValid() {
+        if (!$("#name").val()) {
+            document.getElementById("name-div").className = "form-group row has-danger";
+            document.getElementById("name").className = "form-control form-control-sm form-control-danger";
+            return false;
+        }
+        return true;
+    };
+
+    function checkRowsValid() {
+        if (!$("#rows").val() || $("#rows").val() < 1 || $("#rows").val()>100) {
+            document.getElementById("rows-div").className = "form-group row has-danger";
+            document.getElementById("rows").className = "form-control form-control-sm form-control-danger";
+            $("#errorRowsRange").show();
+            return false;
+        }
+        return true;
+    };
+
+    function checkColsValid() {
+        if (!$("#cols").val() || $("#cols").val() < 1 || $("#cols").val() > 100) {
+            document.getElementById("cols-div").className = "form-group row has-danger";
+            document.getElementById("cols").className = "form-control form-control-sm form-control-danger";
+            $("#errorColsRange").show();
+            return false;
+        }
+        return true;
+    };
+
+    function generateValid() {
+        var nameValid = checkNameValid();
+        var rowsValid = checkRowsValid();
+        var colsValid = checkColsValid();
+        if (!nameValid || !rowsValid || !colsValid) {
+            return false;
+        }
+        return true;
+    }
 
 })(jQuery);

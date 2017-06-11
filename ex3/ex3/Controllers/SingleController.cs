@@ -47,6 +47,8 @@ namespace ex3.Controllers
         public IHttpActionResult SolveMaze(string name, int algo)
         {
             Solution<Position> mazeSolve = this.model.Solve(name, algo);
+            if (mazeSolve == null)
+                return NotFound();
             SolveParam solve = new SolveParam();
             this.EditSolveParam(solve, mazeSolve, name, algo);
             return Ok(solve);

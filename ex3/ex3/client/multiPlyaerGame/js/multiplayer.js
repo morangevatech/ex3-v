@@ -1,4 +1,5 @@
-﻿$("#rows").val(localStorage.getItem("rows"));
+﻿document.title = "Multiplayer Game";
+$("#rows").val(localStorage.getItem("rows"));
 $("#cols").val(localStorage.getItem("cols"));
 
 var chat = $.connection.MultiplayerHub;chat.client.broadcastMessage = function (name, message) {

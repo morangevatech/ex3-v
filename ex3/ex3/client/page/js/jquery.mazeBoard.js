@@ -117,14 +117,14 @@
             currntStateCol = maze.InitialPosCol;
         };
 
-
         $.fn.restartMaze = function () {
             addKeyboardListener();
             clearPlayer();
             resetCurrntState();
             drawPlayer();
             drawGoal();
-        }
+            return this;
+        };
 
         $.fn.solveMaze = function (solution) {          
             var path = solution.MazeSolution;
@@ -162,6 +162,8 @@
         return this;
     };
 })(jQuery);
+
+
 
 
 

@@ -1,4 +1,8 @@
-﻿.left-form{
+﻿h4{
+    color:#ccc !important;
+}
+
+.left-form{
     float:left;
     max-width: 30%;
     margin-left:10%;
@@ -12,4 +16,15 @@
 
 .canvas-left{
     margin-left:50%;
+}
+
+.h2-left{
+    max-width: 30%;
+    display: inline-block;
+}
+
+.loading{
+    max-width:30%;
+    margin-left:2%;
+    display: inline-block;   
 }

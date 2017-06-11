@@ -1,5 +1,6 @@
 ﻿src = "../page/js/jquery.mazeBoard.js";
 
+document.title = "Singal Game";
 $("#rows").val(localStorage.getItem("rows"));
 $("#cols").val(localStorage.getItem("cols"));
 if (localStorage.getItem("algo") != null) {
@@ -8,6 +9,8 @@ if (localStorage.getItem("algo") != null) {
 
 (function ($) {   
     $("#btnGenerateMaze").click(function () {
+        var animated = true;
+        $("#loading-maze").show();
         var apiUrl = "../../api/Single/GenerateMaze";
         var maze = {
             Name: $("#name").val(),
@@ -29,11 +32,14 @@ if (localStorage.getItem("algo") != null) {
                 "\nGoalPosRow: " + maze.GoalPosRow +
                 "\nGoalPosCol: " + maze.GoalPosCol +
                 "\nMazePath: " + maze.MazePath);*/
+            document.title = maze.Name;
             $("#option-div").show();
             document.getElementById("mazeCanvas").tabIndex = 0;
             $("#mazeCanvas").mazeBoard(maze);
+            $("#loading-maze").hide();
             $("#canvas-div").show();
             document.getElementById("mazeCanvas").focus();
+    
         })
     })
         $("#btnSolveMaze").click(function () {

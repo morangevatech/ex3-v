@@ -160,6 +160,7 @@
     <Content Include="client\multiPlyaerGame\js\multiPlayer.js" />
     <Content Include="client\multiPlyaerGame\MultiPlayerGame.html" />
     <Content Include="client\page\css\page-style.css" />
+    <Content Include="client\page\img\loading.gif" />
     <Content Include="client\page\js\jquery.mazeBoard.js" />
     <None Include="client\Scripts\jquery-3.1.1.intellisense.js" />
     <Content Include="client\page\img\jigglypuff.png" />

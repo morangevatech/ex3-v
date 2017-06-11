@@ -41,20 +41,27 @@
                         <button type="button" id="btnGenerateMaze" value="Generate Maze" class="btn btn-secondary btn-sm">Start New Game</button>
                     </div>
                 </div>
-
-                <div><hr class="style1"></div>
-                <div class="form-group row">
-                    <label class="col-sm-2 col-form-label col-form-label-sm" for="text">Search Algo</label>
-                    <div class="dropdown col-sm-10">
-                        <select id="algo" class="btn btn-secondary btn-sm" required="required">
-                            <option value="0" selected>Bfs</option>
-                            <option value="1">Dfs</option>
-                        </select>
+                <div id="option-div" style="display:none">
+                    <div><hr class="style1"></div>
+                    <div class="form-group row">
+                        <label class="col-sm-2 col-form-label col-form-label-sm" for="text">Search Algo</label>
+                        <div class="dropdown col-sm-10">
+                            <select id="algo" class="btn btn-secondary btn-sm" required="required">
+                                <option value="0" selected>Bfs</option>
+                                <option value="1">Dfs</option>
+                            </select>
+                        </div>
                     </div>
-                </div>
-                <div class="form-group row">
-                    <div class="offset-sm-2 col-sm-10">
-                        <button type="button" id="btnSolveMaze" value="Solve Maze" class="btn btn-secondary btn-sm">Solve Game</button>
+                    <div class="form-group row">
+                        <div class="offset-sm-2 col-sm-10">
+                            <button type="button" id="btnSolveMaze" value="Solve Maze" class="btn btn-secondary btn-sm">Solve Game</button>
+                        </div>
+                    </div>
+                    <div><hr class="style1"></div>
+                    <div class="form-group row">
+                        <div class="offset-sm-2 col-sm-10">
+                            <button type="button" id="btnRestartMaze" value="Restart Maze" class="btn btn-secondary btn-sm">Restart Game</button>
+                        </div>
                     </div>
                 </div>
             </form>
@@ -65,7 +72,7 @@
     </div>
     <script src="../Scripts/jquery-3.1.1.js"></script>
     <script src="../header/js/loadHeader.js"></script>
-    <script src="../bootstrap-4.0.0-alpha.6/js/bootstrap.min.js"></script>
+    <!--<script src="../bootstrap-4.0.0-alpha.6/js/bootstrap.min.js"></script>-->
     <script src="../page/js/jquery.mazeBoard.js"></script>
     <script src="../singlePlayerGame/js/singlePlayer.js"></script>    
     <script src="../bootstrap/jquery-validation-1.16.0/dist/jquery.validate.js"></script>

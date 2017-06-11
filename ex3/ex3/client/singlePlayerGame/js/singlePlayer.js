@@ -28,7 +28,8 @@ if (localStorage.getItem("algo") != null) {
                 "\nInitialPosCol: " + maze.InitialPosCol +
                 "\nGoalPosRow: " + maze.GoalPosRow +
                 "\nGoalPosCol: " + maze.GoalPosCol +
-                "\nMazePath: " + maze.MazePath);*/ 
+                "\nMazePath: " + maze.MazePath);*/
+            $("#option-div").show();
             document.getElementById("mazeCanvas").tabIndex = 0;
             $("#mazeCanvas").mazeBoard(maze);
             $("#canvas-div").show();
@@ -41,13 +42,19 @@ if (localStorage.getItem("algo") != null) {
         Name: $("#name").val(),
         Algo: $("#algo").val(),
         MazeSolution: null,
-    };
-    $.get(apiUrl, { Name: solution.Name, Algo: solution.Algo })
-    .done(function (solution) {
-        /*alert("Name: " + solution.Name +
-             "\nAlgo: " + solution.Algo +
-             "\nMazeSolution: " + solution.MazeSolution);*/
-        $("mazeCanvas").solveMaze(solution);
+        };
+        $.get(apiUrl, { Name: solution.Name, Algo: solution.Algo })
+        .done(function (solution) {
+            /*alert("Name: " + solution.Name +
+                 "\nAlgo: " + solution.Algo +
+                 "\nMazeSolution: " + solution.MazeSolution);*/
+            $("mazeCanvas").solveMaze(solution);
+        })
     })
+
+    $("#btnRestartMaze").click(function(){
+        $("mazeCanvas").restartMaze();
+        document.getElementById("mazeCanvas").focus();
     })
+
 })(jQuery);

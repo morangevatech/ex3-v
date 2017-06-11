@@ -58,6 +58,10 @@
             context.drawImage(player_image, currntStateCol * cellWidth, currntStateRow * cellHeight, cellWidth, cellHeight);
         };
 
+        function drawGoal() {
+            context.drawImage(goal_image, cellWidth * maze.GoalPosCol, cellHeight * maze.GoalPosRow, cellWidth, cellHeight);
+        };
+
         function checkIfWinner() {
             if (currntStateCol == maze.GoalPosCol && currntStateRow == maze.GoalPosRow) {
                 alert("winner");
@@ -113,12 +117,22 @@
             currntStateCol = maze.InitialPosCol;
         };
 
+
+        $.fn.restartMaze = function () {
+            addKeyboardListener();
+            clearPlayer();
+            resetCurrntState();
+            drawPlayer();
+            drawGoal();
+        }
+
         $.fn.solveMaze = function (solution) {          
             var path = solution.MazeSolution;
             removeKeyboardListener();
             clearPlayer();
             resetCurrntState();
             drawPlayer();
+            drawGoal();
             for (i = 0; i < path.length; i++) {
                 doSetTimeout(path[i],i);
             }
@@ -130,27 +144,21 @@
             function moveAnimation(index) {
                     switch (index) {
                         case '0':
-                            //alert(0);
                             leftArrowPressed();
                             break;
                         case '1':
-                            //alert(1);
                             rightArrowPressed();
                             break;
                         case '2':
-                            //alert(2);
                             upArrowPressed();
                             break;
                         case '3':
-                            //alert(3);
                             downArrowPressed();
                             break;
                     }
             };
-
             return this;
         };
-
         return this;
     };
 })(jQuery);

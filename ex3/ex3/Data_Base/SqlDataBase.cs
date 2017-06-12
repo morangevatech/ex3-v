@@ -5,6 +5,7 @@ using System.Web;
 using System.Data;
 using System.Data.SqlClient;
 using System.IO;
+using System.Web.Helpers;
 
 namespace ex3.Data_Base
 {
@@ -166,6 +167,33 @@ namespace ex3.Data_Base
                     str += this.reader[0];
                 int.TryParse(str, out losses);
                 return losses;
+            }
+            finally
+            {
+                this.Close();
+            }
+        }
+
+        public bool checkPassword(string username, string password)
+        {
+            try
+            {
+                int id = this.GetUserIdByName(username);
+                this.conn.Open();
+                this.cmd = new SqlCommand("select Password,Salt from Users where ID=@id", conn);
+                this.cmd.Parameters.AddWithValue("@id", id);
+                this.reader = cmd.ExecuteReader();
+                string strPassword = "";
+                string strSalt = "";
+                while (this.reader.Read())
+                {
+                    strPassword = this.reader[0].ToString();
+                    strSalt = this.reader[1].ToString();
+                }
+                if(Crypto.SHA256(password + strSalt) == strPassword)
+                    return true;
+                else
+                    return false;             
             }
             finally
             {

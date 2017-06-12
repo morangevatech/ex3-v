@@ -27,6 +27,9 @@
                     <label for="password">Password</label>
                     <div class="bar"></div>
                 </div>
+                <div id="error-login" class="error" style="display:none">
+                    <label id="error-msg-login"></label>
+                </div>
                 <div class="button-container">
                     <button type="button" id="btnLogin"><span>Go</span></button>
                 </div>
@@ -41,12 +44,12 @@
             <form id="register">
                 <div class="input-container">
                     <input type="text" id="username-register" required="required" />
-                    <label for="username">Username</label>
+                    <label for="username-register">Username</label>
                     <div class="bar"></div>
                 </div>
                 <div class="input-container">
                     <input type="password" id="password-register" required="required"/>
-                    <label for="password">Password</label>
+                    <label for="password-register">Password</label>
                     <div class="bar"></div>
                 </div>
                 <div class="input-container">
@@ -58,6 +61,9 @@
                     <input type="text" id="email" required="required" />
                     <label for="email">Email</label>
                     <div class="bar"></div>
+                </div>
+                <div id="error-register" class="error" style="display:none">
+                    <label id="error-msg-register"></label>
                 </div>
                 <div class="button-container">
                     <button type="button" id="btnRegister"><span>Next</span></button>

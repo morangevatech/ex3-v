@@ -401,6 +401,14 @@
   content: '\00d7';
 }
 
+.error{
+    position:relative;
+    color: #ed2553;
+    text-align:center;
+    margin-bottom:5%;
+    font-size:1.2em;
+}
+
 /* Keyframes */
 @-webkit-keyframes buttonFadeInUp {
   0% {

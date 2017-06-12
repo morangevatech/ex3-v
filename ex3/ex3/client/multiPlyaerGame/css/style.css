@@ -1,4 +1,9 @@
-﻿.left-form{
+﻿h4{
+    color:#ccc !important;
+    display:inline-block;
+}
+
+.left-form{
     float:left;
     max-width: 30%;
     margin-left:10%;
@@ -10,7 +15,35 @@
     border-radius: .2rem;
 }
 
+.h2-left{
+    max-width: 30%;
+    display: inline-block;
+}
+
 .txt-title{
     margin-bottom:5%;
     margin-top:2%;
+}
+
+.loading{
+    max-width:30%;
+    margin-left:2%;
+    display: inline-block;   
+}
+
+.img-loading{
+    display:inline-block; 
+    width:7%;
+    height:7%;
+    margin-bottom:3%;
+    margin-left:1%
+}
+
+.error-lebal{
+    display:none;
+    color:red
+}
+
+.start-title{
+    color:#ed2553 !important;
 }

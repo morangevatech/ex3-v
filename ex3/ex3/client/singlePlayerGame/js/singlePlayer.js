@@ -10,10 +10,11 @@ if (localStorage.getItem("algo") != null) {
 
 (function ($) {   
     $("#btnGenerateMaze").click(function () {
+        $("#error-msg-solve").hide();
         if (!generateValid()) {
             return false;
         }
-        $("#loading-maze").show();
+        showLoading();
         var apiUrl = "../../api/Single/GenerateMaze";
         var maze = {
             Name: $("#name").val(),
@@ -26,7 +27,7 @@ if (localStorage.getItem("algo") != null) {
             MazePath:null
         };
         $.get(apiUrl, { Name:maze.Name, Rows:maze.Rows, Cols:maze.Cols})
-        .done(function (maze) {
+        .done(function (maze) {            
             /*alert("Name: " + maze.Name +
                 "\nCols: " + maze.Cols +
                 "\nRows: " + maze.Rows +
@@ -35,17 +36,20 @@ if (localStorage.getItem("algo") != null) {
                 "\nGoalPosRow: " + maze.GoalPosRow +
                 "\nGoalPosCol: " + maze.GoalPosCol +
                 "\nMazePath: " + maze.MazePath);*/
+            var mazecanvas = document.getElementById("mazeCanvas");
             document.title = maze.Name;
-            $("#option-div").show();
-            document.getElementById("mazeCanvas").tabIndex = 0;
+            showOptions();
+            mazecanvas.tabIndex = 0;
             $("#mazeCanvas").mazeBoard(maze);
-            $("#loading-maze").hide();
-            $("#canvas-div").show();
-            document.getElementById("mazeCanvas").focus();
+            hideLoading();
+            showCanvas();
+            mazecanvas.focus();
     
         })
     })
       $("#btnSolveMaze").click(function () {
+        var msgError = document.getElementById("error-msg-solve");
+        $("#error-msg-solve").hide();
         if (!checkNameValid()) {
             return false;
         }
@@ -62,13 +66,15 @@ if (localStorage.getItem("algo") != null) {
                  "\nMazeSolution: " + solution.MazeSolution);*/
             if (document.title != solution.Name)
             {
-                alert("Error: can't solve another game, you are play in game named " + document.title);
+                msgError.innerHTML = "# can't solve another game, you are play in game named: " + document.title;
+                $("#error-msg-solve").show();
                 return false;
             }
             $("mazeCanvas").solveMaze(solution);
         })
         .fail(function () {
-            alert("Error: name of maze doesn't exist at maze single player pool");
+            msgError.innerHTML = "# name of maze doesn't exist at maze single player pool";
+            $("#error-msg-solve").show();
         });
     })
 
@@ -133,4 +139,19 @@ if (localStorage.getItem("algo") != null) {
         return true;
     }
 
+    function showOptions() {
+        $("#option-div").show();
+    }
+
+    function showLoading() {
+        $("#loading-maze").show();
+    }
+
+    function hideLoading() {
+        $("#loading-maze").hide();
+    }
+
+    function showCanvas() {
+        $("#canvas-div").show();
+    }
 })(jQuery);

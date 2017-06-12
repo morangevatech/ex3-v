@@ -18,3 +18,8 @@
 .saved-txt{
     margin-left:11%;
 }
+
+.error-lebal{
+    display:none;
+    color:red
+}

@@ -21,22 +21,24 @@
                 <h4>Choose your default settings</h4>
             </div>
             <form id="settings">
-                <div class="form-group row">
+                <div class="form-group row" id="rows-div">
                     <label class="col-sm-2 col-form-label col-form-label-sm" for="number">Rows Number</label>
                     <div class="col-sm-10">
-                        <input type="number" class="form-control form-control-sm" id="rows" placeholder="10" min="1" max="100" required="required">
+                        <input type="number" class="form-control form-control-sm" id="rows" placeholder="10">
+                        <label id="errorRowsRange" class="col-form-label col-form-label-sm error-lebal">enter number in range 1 to 100</label>
                     </div>
                 </div>
-                <div class="form-group row">
+                <div class="form-group row" id="cols-div">
                     <label class="col-sm-2 col-form-label col-form-label-sm" for="number">Cols Number</label>
                     <div class="col-sm-10">
-                        <input type="number" class="form-control form-control-sm" id="cols" placeholder="10" min="1" max="100" required="required">
+                        <input type="number" class="form-control form-control-sm" id="cols" placeholder="10">
+                        <label id="errorColsRange" class="col-form-label col-form-label-sm error-lebal">enter number in range 1 to 100</label>
                     </div>
                 </div>
                 <div class="form-group row">
                     <label class="col-sm-2 col-form-label col-form-label-sm" for="text">Search Algo</label>
                     <div class="dropdown col-sm-10">
-                        <select id="algo" class="btn btn-secondary btn-sm" required="required">
+                        <select id="algo" class="btn btn-secondary btn-sm">
                             <option value="0" selected>Bfs</option>
                             <option value="1">Dfs</option>
                         </select>
@@ -44,7 +46,7 @@
                 </div>
                 <div class="form-group row">
                     <div class="offset-sm-2 col-sm-10">
-                        <button type="submit" value="saved settings" id="btnSaveSettings" class="btn btn-secondary btn-sm">Save Settings</button>
+                        <button type="button" value="saved settings" id="btnSaveSettings" class="btn btn-secondary btn-sm">Save Settings</button>
                     </div>
                 </div>
             </form>

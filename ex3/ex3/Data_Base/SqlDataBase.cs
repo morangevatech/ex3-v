@@ -20,12 +20,16 @@ namespace ex3.Data_Base
             this.cmd = null;
         }
 
-        public void AddUserToDB(string userName, string password, string email)
+        public void AddUserToDB(string username, string password,string email, string salt)
         {
             try
             {
                 this.conn.Open();
-                this.cmd = new SqlCommand("insert into Users (UserName,Password,Email) values ('" + userName + "', '" + password + "', '" + email + "')", conn);
+                this.cmd = new SqlCommand("insert into Users (UserName,Password,Email,Salt) values (@username,@password,@email,@salt)", conn);
+                this.cmd.Parameters.AddWithValue("@username", username);
+                this.cmd.Parameters.AddWithValue("@password", password);
+                this.cmd.Parameters.AddWithValue("@email", email);
+                this.cmd.Parameters.AddWithValue("@salt", salt);
                 cmd.ExecuteNonQuery();            }
             finally
             {
@@ -33,13 +37,17 @@ namespace ex3.Data_Base
             }
         }
 
-        public void CreateUserInRankigsTableDB(string userName, int wins, int losses)
+        public void CreateUserInRankigsTableDB(string username, int wins, int losses)
         {
             try
             {
-                int id = this.GetUserIdByName(userName);
+                int id = this.GetUserIdByName(username);
                 this.conn.Open();
-                this.cmd = new SqlCommand("insert into UserRankings (ID,UserName,Wins,Losses) values ('" + id + "', '" + userName + "', '" + wins + "','" + losses + "')", conn);
+                this.cmd = new SqlCommand("insert into UserRankings (ID,UserName,Wins,Losses) values (@id,@username,@wins,@losses)", conn);
+                this.cmd.Parameters.AddWithValue("@id", id);
+                this.cmd.Parameters.AddWithValue("@username", username);
+                this.cmd.Parameters.AddWithValue("@wins", wins);
+                this.cmd.Parameters.AddWithValue("@losses", losses);
                 cmd.ExecuteNonQuery();            }
             finally
             {
@@ -53,7 +61,9 @@ namespace ex3.Data_Base
             {
                 int wins = this.GetWinsByUserID(id)+1;
                 this.conn.Open();
-                this.cmd = new SqlCommand("UPDATE UserRankings SET Wins=" + wins + " WHERE ID =" + id, conn);
+                this.cmd = new SqlCommand("UPDATE UserRankings SET Wins=@wins WHERE ID =@id", conn);
+                this.cmd.Parameters.AddWithValue("@wins", wins);
+                this.cmd.Parameters.AddWithValue("@id", id);
                 cmd.ExecuteNonQuery();
             }
             finally
@@ -68,8 +78,10 @@ namespace ex3.Data_Base
             {
                 int losses = this.GetLossesByUserID(id) + 1;
                 this.conn.Open();
-                this.cmd = new SqlCommand("UPDATE UserRankings SET Losses=" + losses + " WHERE ID =" + id, conn);
-                cmd.ExecuteNonQuery();
+                this.cmd = new SqlCommand("UPDATE UserRankings SET Losses=@losses WHERE ID =@id", conn);
+                this.cmd.Parameters.AddWithValue("@losses", losses);
+                this.cmd.Parameters.AddWithValue("@id", id);
+                this.cmd.ExecuteNonQuery();
             }
             finally
             {
@@ -77,12 +89,34 @@ namespace ex3.Data_Base
             }
         }
 
-        public int GetUserIdByName(string userName)
+        public int CheckIfUsernameExist(string username)
         {
             try
             {
                 this.conn.Open();
-                this.cmd = new SqlCommand("select ID from Users where UserName='" + userName + "'", conn);
+                this.cmd = new SqlCommand("select count(*) from Users where UserName=@username", conn);
+                this.cmd.Parameters.AddWithValue("@username", username);
+                this.reader = cmd.ExecuteReader();
+                string str = "";
+                int counter;
+                while (this.reader.Read())
+                    str += this.reader[0];
+                int.TryParse(str, out counter);
+                return counter;
+            }
+            finally
+            {
+                this.Close();
+            }
+        }
+
+        public int GetUserIdByName(string username)
+        {
+            try
+            {
+                this.conn.Open();
+                this.cmd = new SqlCommand("select ID from Users where UserName=@username", conn);
+                this.cmd.Parameters.AddWithValue("@username", username);
                 this.reader = cmd.ExecuteReader();
                 string str = "";
                 int id;
@@ -102,7 +136,8 @@ namespace ex3.Data_Base
             try
             {
                 this.conn.Open();
-                this.cmd = new SqlCommand("select Wins from UserRankings where ID='" + id + "'", conn);
+                this.cmd = new SqlCommand("select Wins from UserRankings where ID=@id", conn);
+                this.cmd.Parameters.AddWithValue("@id", id);
                 this.reader = cmd.ExecuteReader();
                 string str = "";
                 int wins;
@@ -122,7 +157,8 @@ namespace ex3.Data_Base
             try
             {
                 this.conn.Open();
-                this.cmd = new SqlCommand("select Losses from UserRankings where ID='" + id + "'", conn);
+                this.cmd = new SqlCommand("select Losses from UserRankings where ID=@id", conn);
+                this.cmd.Parameters.AddWithValue("@id", id);
                 this.reader = cmd.ExecuteReader();
                 string str = "";
                 int losses;

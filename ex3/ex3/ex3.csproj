@@ -187,6 +187,7 @@
     <Content Include="client\singlePlayerGame\js\singlePlayer.js" />
     <Content Include="client\singlePlayerGame\SinglePlayerGame.html" />
     <Content Include="client\userRanks\css\style.css" />
+    <Content Include="client\userRanks\js\userRankings.js" />
     <Content Include="client\userRanks\UserRank.html" />
     <Content Include="client\users\css\style.css" />
     <Content Include="client\users\js\index.js" />

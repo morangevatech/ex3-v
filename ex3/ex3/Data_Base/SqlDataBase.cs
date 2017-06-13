@@ -6,6 +6,7 @@ using System.Data;
 using System.Data.SqlClient;
 using System.IO;
 using System.Web.Helpers;
+using Newtonsoft.Json;
 
 namespace ex3.Data_Base
 {
@@ -201,6 +202,33 @@ namespace ex3.Data_Base
             }
         }
 
+        public List<UserRank> getRankingData()
+        {
+            try
+            {
+                List<UserRank> usersRank = new List<UserRank>();                
+                this.conn.Open();
+                this.cmd = new SqlCommand("select UserName,Wins,Losses from UserRankings order by (Wins-Losses) desc ,Wins desc", conn);
+                this.reader = cmd.ExecuteReader();
+                int i = 0;
+                while (this.reader.Read())
+                {
+                    UserRank user = new UserRank();
+                    user.Id = i;
+                    user.Username = this.reader[0].ToString();
+                    user.Wins = int.Parse(this.reader[1].ToString());
+                    user.Losses = int.Parse(this.reader[2].ToString());
+                    usersRank.Add(user);
+                    i++;
+                }
+                return usersRank;
+            }
+            finally
+            {
+                this.Close();
+            }
+        }
+
         public void Close()
         {
             if (this.reader != null)
@@ -208,5 +236,13 @@ namespace ex3.Data_Base
             if (this.conn != null)
                 this.conn.Close();
         }
+    }
+
+    public class UserRank
+    {
+        public int Id { get; set; }
+        public string Username { get; set; }
+        public int Wins { get; set; }
+        public int Losses { get; set; }
     }
 }

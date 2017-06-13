@@ -46,6 +46,13 @@ namespace ex3.Controllers
             else
                 return NotFound();
         }
+
+        [HttpGet]
+        [Route("api/Users/UsersRank")]
+        public List<UserRank> UsersRank()
+        {
+            return db.getRankingData();
+        }
     }
 
     public class Register

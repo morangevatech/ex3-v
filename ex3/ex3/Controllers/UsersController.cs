@@ -22,36 +22,54 @@ namespace ex3.Controllers
         [Route("api/Users/AddUser")]
         public IHttpActionResult AddUser(Register register)
         {
-            if (db.CheckIfUsernameExist(register.Username) == 0)
-            {
-                string currentSalt = Crypto.GenerateSalt();
-                string password=Crypto.SHA256(register.Password + currentSalt);
-                db.AddUserToDB(register.Username, password, register.Email, currentSalt);
-                db.CreateUserInRankigsTableDB(register.Username, 0, 0);
-                return Ok();
+            try {
+                if (db.CheckIfUsernameExist(register.Username) == 0)
+                {
+                    string currentSalt = Crypto.GenerateSalt();
+                    string password = Crypto.SHA256(register.Password + currentSalt);
+                    db.AddUserToDB(register.Username, password, register.Email, currentSalt);
+                    db.CreateUserInRankigsTableDB(register.Username, 0, 0);
+                    return Ok();
+                }
+                return NotFound();
             }
-            return NotFound();           
+            catch
+            {
+                return InternalServerError();
+            }
         }
 
         [HttpPost()]
         [Route("api/Users/LoginUser")]
         public IHttpActionResult LoginUser(Login login)
         {
-            if (db.CheckIfUsernameExist(login.Username) == 0)
-            {
-                return NotFound();
+            try {
+                if (db.CheckIfUsernameExist(login.Username) == 0)
+                {
+                    return NotFound();
+                }
+                if (db.checkPassword(login.Username, login.Password))
+                    return Ok();
+                else
+                    return NotFound();
             }
-            if(db.checkPassword(login.Username, login.Password)) 
-                return Ok();
-            else
-                return NotFound();
+            catch
+            {
+                return InternalServerError();
+            }
         }
 
         [HttpGet]
         [Route("api/Users/UsersRank")]
-        public List<UserRank> UsersRank()
+        public IHttpActionResult UsersRank()
         {
-            return db.getRankingData();
+            try {
+                return Ok(db.getRankingData());
+            }
+            catch
+            {
+                return InternalServerError();
+            }
         }
     }
 

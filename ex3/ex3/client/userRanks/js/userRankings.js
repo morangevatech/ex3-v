@@ -7,6 +7,12 @@
             createTable(data);
             hideLoading();
         })
+        .fail(function (jqXHR, textStatus, errorThrown) {
+            if (jqXHR.status == 500) {
+                hideLoading();
+                alert("# error in connection to server")
+            }
+        })
     })
 
     function createTable(data) {

@@ -24,10 +24,16 @@ namespace ex3.Controllers
         [HttpGet]
         public IHttpActionResult GenerateMaze(string name, int rows, int cols)
         {
-            Maze mazeGenerate = this.model.Generate(name, rows, cols);
-            MazeParam maze = new MazeParam();
-            this.EditMazeParam(maze, mazeGenerate);
-            return Ok(maze);
+            try {
+                Maze mazeGenerate = this.model.Generate(name, rows, cols);
+                MazeParam maze = new MazeParam();
+                this.EditMazeParam(maze, mazeGenerate);
+                return Ok(maze);
+            }
+            catch
+            {
+                return InternalServerError();
+            }
         }
 
         private void EditMazeParam(MazeParam maze, Maze mazeGenerate)
@@ -46,12 +52,18 @@ namespace ex3.Controllers
         [HttpGet]
         public IHttpActionResult SolveMaze(string name, int algo)
         {
-            Solution<Position> mazeSolve = this.model.Solve(name, algo);
-            if (mazeSolve == null)
-                return NotFound();
-            SolveParam solve = new SolveParam();
-            this.EditSolveParam(solve, mazeSolve, name, algo);
-            return Ok(solve);
+            try {
+                Solution<Position> mazeSolve = this.model.Solve(name, algo);
+                if (mazeSolve == null)
+                    return NotFound();
+                SolveParam solve = new SolveParam();
+                this.EditSolveParam(solve, mazeSolve, name, algo);
+                return Ok(solve);
+            }
+            catch
+            {
+                return InternalServerError();
+            }
         }
 
         private void EditSolveParam(SolveParam solve, Solution<Position> mazeSolve, string name, int algo)

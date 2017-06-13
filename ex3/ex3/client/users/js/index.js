@@ -27,10 +27,15 @@
         .done(function () {
             alert("log-in");
         })
-        .fail(function () {
-            msgError.innerHTML = "# Username not exist or password incorrect";
-            showLoginError();
-            return false;
+        .fail(function (jqXHR, textStatus, errorThrown) {
+            if (jqXHR.status == 404) {
+                msgError.innerHTML = "# Username not exist or password incorrect";
+                showLoginError();
+            }
+            if (jqXHR.status == 500)
+            {
+                alert("error in connection to server");
+            }                     
         });
     });
 
@@ -53,9 +58,14 @@
         .done(function () {
             alert("add");
         })
-        .fail(function () {
-            msgError.innerHTML = "# username exist";
-            showRegisterError();
+        .fail(function (jqXHR, textStatus, errorThrown) {
+            if (jqXHR.status == 404) {
+                msgError.innerHTML = "# username exist";
+                showRegisterError();
+            }
+            if (jqXHR.status == 500) {
+                alert("error in connection to server");
+            }
         });
     });
 

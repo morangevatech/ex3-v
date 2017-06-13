@@ -26,8 +26,8 @@ if (localStorage.getItem("algo") != null) {
             GoalPosCol: null,
             MazePath:null
         };
-        $.get(apiUrl, { Name:maze.Name, Rows:maze.Rows, Cols:maze.Cols})
-        .done(function (maze) {            
+        $.get(apiUrl, { Name: maze.Name, Rows: maze.Rows, Cols: maze.Cols })
+        .done(function (maze) {
             /*alert("Name: " + maze.Name +
                 "\nCols: " + maze.Cols +
                 "\nRows: " + maze.Rows +
@@ -44,8 +44,12 @@ if (localStorage.getItem("algo") != null) {
             hideLoading();
             showCanvas();
             mazecanvas.focus();
-    
         })
+        .fail(function (jqXHR, textStatus, errorThrown) {
+            if (jqXHR.status == 500) {
+                alert("error in connection to server");
+            }
+        });
     })
       $("#btnSolveMaze").click(function () {
         var msgError = document.getElementById("error-msg-solve");
@@ -66,15 +70,20 @@ if (localStorage.getItem("algo") != null) {
                  "\nMazeSolution: " + solution.MazeSolution);*/
             if (document.title != solution.Name)
             {
-                msgError.innerHTML = "# can't solve another game, you are play in game named: " + document.title;
+                msgError.innerHTML = "# can't solve another game, you are play in game named: '" + document.title + "'";
                 $("#error-msg-solve").show();
                 return false;
             }
             $("mazeCanvas").solveMaze(solution);
         })
-        .fail(function () {
-            msgError.innerHTML = "# name of maze doesn't exist at maze single player pool";
-            $("#error-msg-solve").show();
+        .fail(function (jqXHR, textStatus, errorThrown) {
+            if (jqXHR.status == 404) {
+                msgError.innerHTML = "# name of maze doesn't exist at maze single player pool";
+                $("#error-msg-solve").show();
+            }
+            if (jqXHR.status == 500) {
+                alert("error in connection to server");
+            }            
         });
     })
 

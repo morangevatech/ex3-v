@@ -10,6 +10,11 @@
         }
     })
 
+    $("#logout").click(function () {
+        sessionStorage.removeItem('loginSession');
+    })
+    //sessionStorage.setItem('loginSession', login.Username);
+
     function showLoginBtn() {
         $("#login").show();
     }

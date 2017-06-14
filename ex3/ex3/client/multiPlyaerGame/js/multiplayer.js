@@ -2,7 +2,18 @@
 $("#rows").val(localStorage.getItem("rows"));
 $("#cols").val(localStorage.getItem("cols"));
 
-(function ($) {  
+(function ($) {
+    $(document).ready(function () {
+        if (sessionStorage.getItem('loginSession')) {
+            hideNotLogin();
+            showMenuMulti();
+        }
+        else {
+            hideMenuMulti();
+            showNotLogin();
+        }
+    })
+
     $("#btnStartGame").click(function () {
         if (!startValid()) {
             return false;
@@ -76,6 +87,22 @@ $("#cols").val(localStorage.getItem("cols"));
 
     function hideLoading() {
         $("#loading-maze").hide();
+    }
+
+    function showMenuMulti() {
+        $("#from-multi").show();
+    }
+
+    function hideMenuMulti() {
+        $("#from-multi").hide();
+    }
+
+    function showNotLogin() {
+        $("#not-connected").show();
+    }
+
+    function hideNotLogin() {
+        $("#not-connected").hide();
     }
 })(jQuery);
 

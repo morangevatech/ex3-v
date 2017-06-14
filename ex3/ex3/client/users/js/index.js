@@ -25,7 +25,7 @@
         };
         $.post(apiUrl, { Username: login.Username, Password: login.Password})
         .done(function () {
-            alert("log-in");
+            createSession();
         })
         .fail(function (jqXHR, textStatus, errorThrown) {
             if (jqXHR.status == 404) {
@@ -56,7 +56,7 @@
         };
         $.post(apiUrl, { Username: register.Username, Password: register.Password, Email: register.Email })
         .done(function () {
-            alert("add");
+            createSession();
         })
         .fail(function (jqXHR, textStatus, errorThrown) {
             if (jqXHR.status == 404) {
@@ -103,6 +103,11 @@
 
     function hideRegisterError() {
         $("#error-register").hide();
+    }
+
+    function createSession() {
+        sessionStorage.setItem('loginSession', login.Username);
+        window.location.href = "../home/index.html";
     }
 
     $("#username-login").focus(function(){

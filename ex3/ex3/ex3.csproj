@@ -161,6 +161,7 @@
     <Content Include="client\bootstrap\meyer-reset\reset.min.css" />
     <Content Include="client\header\css\style.css" />
     <Content Include="client\header\Header.html" />
+    <Content Include="client\header\js\header.js" />
     <Content Include="client\header\js\loadHeader.js" />
     <Content Include="client\header\js\responsiveHeader.js" />
     <Content Include="client\home\Index.html" />

@@ -207,6 +207,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Controllers\MultiplayerController.cs" />
     <Compile Include="Controllers\SingleController.cs" />
     <Compile Include="Controllers\UsersController.cs" />
     <Compile Include="Data_Base\SqlDataBase.cs" />
@@ -223,9 +224,9 @@
     <Compile Include="Models\Searchable.cs" />
     <Compile Include="Models\SolutionRepresent.cs" />
     <Compile Include="Models\SolveParam.cs" />
-    <Compile Include="MultiplayerHub.cs" />
+    <Compile Include="Controllers\MultiplayerHub.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Startup.cs" />
+    <Compile Include="App_Start\Startup.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />

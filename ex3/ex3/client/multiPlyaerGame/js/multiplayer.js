@@ -14,12 +14,23 @@ $("#cols").val(localStorage.getItem("cols"));
         }
     })
 
-    $("#btnStartGame").click(function () {
-        if (!startValid()) {
-            return false;
-        }
-        showLoading();
-    })
+    var multiplayerHub = $.connection.MultiplayerHub;
+
+    $.connection.hub.start().done(function () {
+        $("#btnStartGame").click(function () {
+            if (!startValid()) {
+                return false;
+            }
+            showLoading();
+            multiplayerHub.server.connect();
+        })
+
+        multiplayerHub.server.sendMessage();
+
+        multiplayerHub.client.gotMessage = function () {
+            alert("message");
+        };      
+    });
 
     $("#name").focus(function () {
         document.getElementById("name-div").className = "form-group row";
@@ -105,15 +116,3 @@ $("#cols").val(localStorage.getItem("cols"));
         $("#not-connected").hide();
     }
 })(jQuery);
-
-
-
-
-var chat = $.connection.MultiplayerHub;chat.client.broadcastMessage = function (name, message) {
-    alert("broadcastMessage");
-};var username = prompt('Enter your name:');$.connection.hub.start().done(function () {
-    $('#start-game').click(function () {
-        // Call the Send method on the hub
-        chat.server.send(username,  alert("ok"));
-    });
-});

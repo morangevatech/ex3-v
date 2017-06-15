@@ -1,24 +1,29 @@
-﻿.left-form{
+﻿/*form*/
+.left-form{
     float:left;
     max-width: 50%;
     margin-left:10%;
 }
 
+/*options*/
 .option-style{
     padding: .25rem .5rem;
     font-size: .875rem;
     border-radius: .2rem;
 }
 
+/*title*/
 .txt-title{
     margin-bottom:5%;
     margin-top:2%;
 }
 
+/*saved div*/
 .saved-txt{
     margin-left:11%;
 }
 
+/*error lebal*/
 .error-lebal{
     display:none;
     color:red

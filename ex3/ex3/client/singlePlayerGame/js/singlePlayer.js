@@ -1,6 +1,6 @@
 ﻿src = "../page/js/jquery.mazeBoard.js";
-src= "../page/js/validation.js";
 
+//title of page, put local storage values in fields.
 document.title = "Singal Game";
 $("#rows").val(localStorage.getItem("rows"));
 $("#cols").val(localStorage.getItem("cols"));
@@ -8,7 +8,8 @@ if (localStorage.getItem("algo") != null) {
     $('#algo').val(localStorage.getItem("algo"));
 }
 
-(function ($) {   
+(function ($) {
+    //click on generate maze button
     $("#btnGenerateMaze").click(function () {
         $("#error-msg-solve").hide();
         if (!generateValid()) {
@@ -26,6 +27,7 @@ if (localStorage.getItem("algo") != null) {
             GoalPosCol: null,
             MazePath:null
         };
+        //get request
         $.get(apiUrl, { Name: maze.Name, Rows: maze.Rows, Cols: maze.Cols })
         .done(function (maze) {
             /*alert("Name: " + maze.Name +
@@ -51,7 +53,7 @@ if (localStorage.getItem("algo") != null) {
             }
         });
     })
-      $("#btnSolveMaze").click(function () {
+      //click on solve maze button    $("#btnSolveMaze").click(function () {
         var msgError = document.getElementById("error-msg-solve");
         $("#error-msg-solve").hide();
         if (!checkNameValid()) {
@@ -87,28 +89,33 @@ if (localStorage.getItem("algo") != null) {
         });
     })
 
+    //click on restart maze button
     $("#btnRestartMaze").click(function(){
         $("mazeCanvas").restartMaze();
         document.getElementById("mazeCanvas").focus();
     })
 
+    //focus on name field.
     $("#name").focus(function () {
         document.getElementById("name-div").className = "form-group row";
         document.getElementById("name").className="form-control form-control-sm";
     })
 
+    //focus on rows field.
     $("#rows").focus(function () {
         document.getElementById("rows-div").className = "form-group row";
         document.getElementById("rows").className = "form-control form-control-sm";
         $("#errorRowsRange").hide();
     })
 
+    //focus on cols field.
     $("#cols").focus(function () {
         document.getElementById("cols-div").className = "form-group row";
         document.getElementById("cols").className = "form-control form-control-sm";
         $("#errorColsRange").hide();
     })
 
+    //check if name field is valid
     function checkNameValid() {
         if (!$("#name").val()) {
             document.getElementById("name-div").className = "form-group row has-danger";
@@ -118,6 +125,7 @@ if (localStorage.getItem("algo") != null) {
         return true;
     };
 
+    //check if rows field is valid
     function checkRowsValid() {
         if (!$("#rows").val() || $("#rows").val() < 1 || $("#rows").val()>100) {
             document.getElementById("rows-div").className = "form-group row has-danger";
@@ -128,6 +136,7 @@ if (localStorage.getItem("algo") != null) {
         return true;
     };
 
+    //check if cols field is valid
     function checkColsValid() {
         if (!$("#cols").val() || $("#cols").val() < 1 || $("#cols").val() > 100) {
             document.getElementById("cols-div").className = "form-group row has-danger";
@@ -138,6 +147,7 @@ if (localStorage.getItem("algo") != null) {
         return true;
     };
 
+    //check if generate fields are valid
     function generateValid() {
         var nameValid = checkNameValid();
         var rowsValid = checkRowsValid();
@@ -148,18 +158,22 @@ if (localStorage.getItem("algo") != null) {
         return true;
     }
 
+    //shoe option part - after generate maze
     function showOptions() {
         $("#option-div").show();
     }
 
+    //show loading spinner
     function showLoading() {
         $("#loading-maze").show();
     }
 
+    //hide loading spinner
     function hideLoading() {
         $("#loading-maze").hide();
     }
 
+    //show canvas
     function showCanvas() {
         $("#canvas-div").show();
     }

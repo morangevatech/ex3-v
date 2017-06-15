@@ -3,34 +3,40 @@
     display:inline-block;
 }
 
+/*from*/
 .left-form{
     float:left;
     max-width: 30%;
     margin-left:10%;
 }
 
+/*options after generate maze*/
 .option-style{
     padding: .25rem .5rem;
     font-size: .875rem;
     border-radius: .2rem;
 }
 
+/*h2*/
 .h2-left{
     max-width: 30%;
     display: inline-block;
 }
 
+/*title*/
 .txt-title{
     margin-bottom:5%;
     margin-top:2%;
 }
 
+/*loading spinner*/
 .loading{
     max-width:30%;
     margin-left:2%;
     display: inline-block;   
 }
 
+/*img loading*/
 .img-loading{
     display:inline-block; 
     width:7%;
@@ -39,15 +45,18 @@
     margin-left:1%
 }
 
+/*error label*/
 .error-lebal{
     display:none;
     color:red
 }
 
+/*start title*/
 .start-title{
     color:#ed2553 !important;
 }
 
+/*login*/
 .login{
     margin-left:3%;
     padding-bottom:5%;

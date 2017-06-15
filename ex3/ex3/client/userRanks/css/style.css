@@ -3,22 +3,26 @@
     display:inline-block;
 }
 
+/*table*/
 .table-div{
     margin-left:11%;
     margin-right:11%;
 }
 
+/*h2*/
 .h2-left{
     max-width: 30%;
     display: inline-block;
 }
 
+/*loading spinner*/
 .loading{
     max-width:30%;
     margin-left:2%;
     display: inline-block;   
 }
 
+/*img loading*/
 .img-loading{
     display:inline-block; 
     width:7%;

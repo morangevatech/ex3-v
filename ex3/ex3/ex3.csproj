@@ -180,7 +180,6 @@
     <Content Include="client\page\img\pokemon-go.svg" />
     <Content Include="client\page\js\jquery.mazeBoard.js" />
     <None Include="client\Scripts\jquery-3.1.1.intellisense.js" />
-    <Content Include="client\page\js\validation.js" />
     <Content Include="client\Scripts\jquery-3.1.1.js" />
     <Content Include="client\Scripts\jquery-3.1.1.min.js" />
     <Content Include="client\Scripts\jquery-3.1.1.slim.js" />

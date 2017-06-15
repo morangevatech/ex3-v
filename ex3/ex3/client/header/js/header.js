@@ -3,10 +3,12 @@
         if (sessionStorage.getItem('loginSession')) {
             hideLoginBtn();
             showLogoutBtn();
+            showUsername();
         }
         else {
             showLoginBtn();
             hideLogoutBtn();
+            hideUsername();
         }
     })
 
@@ -29,6 +31,15 @@
 
     function hideLogoutBtn() {
         $("#logout").hide();
+    }
+
+    function showUsername() {
+        document.getElementById("username").innerHTML = "Hello "+ sessionStorage.getItem('loginSession') +"!";
+        $("#username").show();
+    }
+
+    function hideUsername() {
+        $("#username").hide();
     }
 
 })(jQuery);

@@ -13,8 +13,13 @@ $("#cols").val(localStorage.getItem("cols"));
             showNotLogin();
         }
     })
+
+    var multiplayer = $.connection.multiplayerHub;
 
-    var multiplayerHub = $.connection.MultiplayerHub;
+    multiplayer.client.broadcastMessage = function (name, message) {
+        // Add the message to the page
+        alert("go msg");
+    };
 
     $.connection.hub.start().done(function () {
         $("#btnStartGame").click(function () {
@@ -22,14 +27,8 @@ $("#cols").val(localStorage.getItem("cols"));
                 return false;
             }
             showLoading();
-            multiplayerHub.server.connect();
-        })
-
-        multiplayerHub.server.sendMessage();
-
-        multiplayerHub.client.gotMessage = function () {
-            alert("message");
-        };      
+            multiplayer.server.send("kkk", "ok");
+        });
     });
 
     $("#name").focus(function () {

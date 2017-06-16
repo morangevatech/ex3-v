@@ -3,26 +3,18 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using Microsoft.AspNet.SignalR;
-using System.Collections.Concurrent;
+using Microsoft.AspNet.SignalR.Hubs;
 
 namespace ex3
 {
+    [HubName("multiplayerHub")]
     public class MultiplayerHub : Hub
     {
-        private static ConcurrentDictionary<string, string> connectedUsers =
-            new ConcurrentDictionary<string, string>();
-
-        public void Connect(string username)
+        
+        public void Send(string name, string message)
         {
-            connectedUsers[username] = Context.ConnectionId;
-        }
-
-        public void SendMessage(string username)
-        {
-            string recipientId = connectedUsers[username];
-            if (recipientId == null)
-                return;
-            Clients.Client(recipientId).gotMessage("hello");
+            // Call the broadcastMessage method to update clients
+            Clients.All.broadcastMessage(name, message);
         }
     }
 }

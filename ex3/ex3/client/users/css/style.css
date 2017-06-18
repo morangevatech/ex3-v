@@ -412,6 +412,22 @@ body {
     font-size:1.2em;
 }
 
+/*loading spinner*/
+.loading{
+    max-width:30%;
+    margin-left:45%;
+    display: inline-block;   
+}
+
+/*img loading*/
+.img-loading{
+    position:relative;  
+    width:30%;
+    height:30%;
+    margin-bottom:3%;
+    margin-left:1%;
+}
+
 /* Keyframes */
 @-webkit-keyframes buttonFadeInUp {
   0% {

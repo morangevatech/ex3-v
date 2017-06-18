@@ -27,6 +27,7 @@
             Username: username,
             Password: password
         };
+        showLoadingLogin();
         //send post request to check details
         $.post(apiUrl, { Username: login.Username, Password: login.Password})
         .done(function () {
@@ -39,6 +40,7 @@
             }
             if (jqXHR.status == 500)
             {
+                hideLoadingLogin();
                 alert("error in connection to server");
             }                     
         });
@@ -61,6 +63,7 @@
             Password: password,
             Email: email
         };
+        showLoadingRegister();
         //send post request to check if username doesn't exist and create him
         $.post(apiUrl, { Username: register.Username, Password: register.Password, Email: register.Email })
         .done(function () {
@@ -72,6 +75,7 @@
                 showRegisterError();
             }
             if (jqXHR.status == 500) {
+                hideLoadingRegister()
                 alert("error in connection to server");
             }
         });
@@ -100,6 +104,7 @@
 
     //show login error msg
     function showLoginError() {
+        hideLoadingLogin();
         $("#error-login").show();
     }
 
@@ -110,6 +115,7 @@
 
     //show register error msg
     function showRegisterError() {
+        hideLoadingRegister();
         $("#error-register").show();
     }
 
@@ -117,6 +123,23 @@
     function hideRegisterError() {
         $("#error-register").hide();
     }
+
+    function showLoadingLogin() {
+        $("#loading-login").show();
+    }
+
+    function hideLoadingLogin() {
+        $("#loading-login").hide();
+    }
+
+    function showLoadingRegister() {
+        $("#loading-register").show();
+    }
+
+    function hideLoadingRegister() {
+        $("#loading-register").hide();
+    }
+
 
     //create new session to user
     function createSession(username) {

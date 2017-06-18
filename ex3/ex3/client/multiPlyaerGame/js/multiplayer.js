@@ -22,6 +22,7 @@ $("#cols").val(localStorage.getItem("cols"));
         mazecanvas.tabIndex = 0;
         $("#mazeCanvas").mazeBoard(maze, multiplayer);
         $("#otherMazeCanvas").otherMazeBoard(maze);
+        enableJoin();
         hideLoading();
         showCanvas();
         mazecanvas.focus();
@@ -36,6 +37,7 @@ $("#cols").val(localStorage.getItem("cols"));
     };
 
     multiplayer.client.error = function (msg) {
+        hideLoading();
         alert(msg);
     };
 
@@ -64,6 +66,7 @@ $("#cols").val(localStorage.getItem("cols"));
             }
             LoadingTxt("Wait to another player");
             showLoading();
+            disabledJoin();
             var username = sessionStorage.getItem('loginSession');
             var name=$("#name").val();
             var rows =$("#rows").val();
@@ -176,6 +179,16 @@ $("#cols").val(localStorage.getItem("cols"));
     function showCanvas() {
         $("#myCanvas").show();
         $("#otherCanvas").show();
+    }
+
+    function disabledJoin() {
+        document.getElementById("btnJoinGame").disabled = true;
+        document.getElementById("games").disabled = true;
+    }
+
+    function enableJoin() {
+        document.getElementById("btnJoinGame").disabled = false;
+        document.getElementById("games").disabled = false;
     }
 })(jQuery);
 

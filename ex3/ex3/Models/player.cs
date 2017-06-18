@@ -11,7 +11,7 @@ namespace ex3.Models
         /// <summary>
         /// client
         /// </summary>
-        public TcpClient Client { get; set; }
+        public string Client { get; set; }
 
         /// <summary>
         /// IsConnected
@@ -22,7 +22,7 @@ namespace ex3.Models
         /// constructor
         /// </summary>
         /// <param name="client"></param>
-        public Player(TcpClient client)
+        public Player(string client)
         {
             this.Client = client;
             this.IsConnected = true;

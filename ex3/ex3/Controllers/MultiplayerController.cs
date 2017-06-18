@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ex3.Models;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -11,6 +12,25 @@ namespace ex3.Controllers
 {
     public class MultiplayerController : ApiController
     {
+        Model model;
 
+        MultiplayerController()
+        {
+            this.model = new Model();
+        }
+
+        [HttpGet]
+        public IHttpActionResult ListGame()
+        {
+            try
+            {
+                List<string> games=this.model.List();
+                return Ok(games);
+            }
+            catch
+            {
+                return InternalServerError();
+            }
+        }
     }
 }

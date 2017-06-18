@@ -13,12 +13,48 @@ $("#cols").val(localStorage.getItem("cols"));
             showNotLogin();
         }
     })
-
+
     var multiplayer = $.connection.multiplayerHub;
 
-    multiplayer.client.broadcastMessage = function (name, message) {
-        // Add the message to the page
-        alert("go msg");
+    multiplayer.client.broadcastMaze = function (maze) {
+        document.title = maze.Name;
+        var mazecanvas = document.getElementById("mazeCanvas");     
+        mazecanvas.tabIndex = 0;
+        $("#mazeCanvas").mazeBoard(maze, multiplayer);
+        $("#otherMazeCanvas").otherMazeBoard(maze);
+        hideLoading();
+        showCanvas();
+        mazecanvas.focus();
+    };
+
+    multiplayer.client.broadcastLoss = function () {
+        $("#mazeCanvas").PlayerLoss();
+        var username = sessionStorage.getItem('loginSession');
+        multiplayer.server.updateLoss(username);
+        var mazename = document.title;
+        multiplayer.server.close(mazename);
+    };
+
+    multiplayer.client.error = function (msg) {
+        alert(msg);
+    };
+
+    multiplayer.client.broadcastMove = function (move) {
+        var otherMaze = $("#otherMazeCanvas");
+        switch (move) {
+            case "left":
+                otherMaze.leftArrowPressed();
+                break;
+            case "right":
+                otherMaze.rightArrowPressed();
+                break;
+            case "up":
+                otherMaze.upArrowPressed();
+                break;
+            case "down":
+                otherMaze.downArrowPressed();
+                break;
+        }
     };
 
     $.connection.hub.start().done(function () {
@@ -26,9 +62,26 @@ $("#cols").val(localStorage.getItem("cols"));
             if (!startValid()) {
                 return false;
             }
+            LoadingTxt("Wait to another player");
             showLoading();
-            multiplayer.server.send("kkk", "ok");
+            var username = sessionStorage.getItem('loginSession');
+            var name=$("#name").val();
+            var rows =$("#rows").val();
+            var cols=$("#cols").val();
+            multiplayer.server.start(name, rows, cols);
         });
+
+        $("#btnJoinGame").click(function () {
+            var gameSelected = $("#games").val();
+            if (!gameSelected) {
+                alert("non selected value");
+            }
+            else {
+                LoadingTxt("Loading");
+                showLoading();
+                multiplayer.server.join(gameSelected);
+            }
+        })
     });
 
     $("#name").focus(function () {
@@ -99,6 +152,10 @@ $("#cols").val(localStorage.getItem("cols"));
         $("#loading-maze").hide();
     }
 
+    function LoadingTxt(txt) {
+        document.getElementById("lodaing-text").innerHTML = txt;
+    }
+
     function showMenuMulti() {
         $("#from-multi").show();
     }
@@ -114,4 +171,27 @@ $("#cols").val(localStorage.getItem("cols"));
     function hideNotLogin() {
         $("#not-connected").hide();
     }
+
+    //show canvas
+    function showCanvas() {
+        $("#myCanvas").show();
+        $("#otherCanvas").show();
+    }
 })(jQuery);
+
+function dropdownFocus() {
+    var apiUrl = "../../api/Multiplayer/ListGame";
+    $.get(apiUrl)
+    .done(function (list) {
+        var select = document.getElementById("games");
+        select.options.length = 0;
+        for (index in list) {
+            select.options[select.options.length] = new Option(list[index], list[index]);
+        }
+    })
+    .fail(function (jqXHR, textStatus, errorThrown) {
+        if (jqXHR.status == 500) {
+            alert("error in connection to server");
+        }
+    });
+}

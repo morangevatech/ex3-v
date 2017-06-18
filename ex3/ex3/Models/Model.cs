@@ -29,7 +29,7 @@ namespace ex3.Models
         //Dictionary<string, Game> mazesMultiPlayerPool;
         static Dictionary<string, Game> multiPlayersGames = new Dictionary<string, Game>();
 
-        static Dictionary<TcpClient, Game> clientsAtGame= new Dictionary<TcpClient, Game>();
+        static Dictionary<string, Game> clientsAtGame= new Dictionary<string, Game>();
 
         /// <summary>
         /// list of games that can join.
@@ -123,17 +123,16 @@ namespace ex3.Models
         /// <param name="rows">number of rows at maze.</param>
         /// <param name="cols">number of cols at maze.</param>
         /// <returns>maze</returns>
-        public string Start(string name, int rows, int cols, TcpClient client)
+        public bool Start(string name, int rows, int cols, string client)
         {
             Maze maze = GenerateMultiPlayresMaze(name, rows, cols);
             if (maze == null)
-                return null;
+                return false;
             gamesToJoin.Add(name);
             Game game = new Game(name, maze, client);
             multiPlayersGames.Add(name, game);
             clientsAtGame.Add(client, game);
-            //game.WaitToAnotherPlayer();
-            return "wait for another player";
+            return true;
         }
 
         private Maze GenerateMultiPlayresMaze(string name, int rows, int cols)
@@ -167,12 +166,11 @@ namespace ex3.Models
         /// </summary>
         /// <param name="name">maze name</param>
         /// <returns>maze</returns>
-        public Maze Join(string name, TcpClient client)
+        public Maze Join(string name, string client)
         {
             if (!gamesToJoin.Contains(name))
                 //"Error: game doesn't exist in list games to join"
                 return null;
-
             gamesToJoin.Remove(name);
             if (multiPlayersGames.ContainsKey(name))
             {
@@ -193,7 +191,7 @@ namespace ex3.Models
         /// </summary>
         /// <param name="move">direction of player at maze.</param>
         /// <returns>the move</returns>
-        public string Play(Direction move, TcpClient client)
+        public string Play(Direction move, string client)
         {
             Game game = clientsAtGame[client];
             return null;
@@ -204,7 +202,7 @@ namespace ex3.Models
         /// </summary>
         /// <param name="name">maze name</param>
         /// <returns>true - Succeeded in close</returns>
-        public string Close(string name, TcpClient client)
+        public string Close(string name, string client)
         {
             Game game = clientsAtGame[client];
             if (game.Name == name)
@@ -213,7 +211,7 @@ namespace ex3.Models
                     gamesToJoin.Remove(name);
                 game.DisConnectPlayer(client);
                 clientsAtGame.Remove(client);
-                TcpClient otherPlayer = game.GetOtherPlayer(client);
+                string otherPlayer = game.GetOtherPlayer(client);
                 if (otherPlayer != null)
                     clientsAtGame.Remove(otherPlayer);
                 multiPlayersGames.Remove(name);
@@ -227,7 +225,7 @@ namespace ex3.Models
         /// </summary>
         /// <param name="client">client</param>
         /// <returns>true if participate, otherwise not</returns>
-        public bool IsParticipate(TcpClient client)
+        public bool IsParticipate(string client)
         {
             if (!clientsAtGame.ContainsKey(client))
                 //"Error: client don't Participating in multi player game"
@@ -241,12 +239,12 @@ namespace ex3.Models
         /// </summary>
         /// <param name="client">client</param>
         /// <returns>other participate at game</returns>
-        public TcpClient GetOtherParticipate(TcpClient client)
+        public string GetOtherParticipate(string client)
         {
             if (IsParticipate(client))
             {
                 Game game = clientsAtGame[client];
-                TcpClient otherParticipate = game.GetOtherPlayer(client);
+                string otherParticipate = game.GetOtherPlayer(client);
                 return otherParticipate;
             }
             return null;

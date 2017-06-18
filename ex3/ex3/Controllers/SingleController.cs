@@ -27,26 +27,13 @@ namespace ex3.Controllers
             try {
                 Maze mazeGenerate = this.model.Generate(name, rows, cols);
                 MazeParam maze = new MazeParam();
-                this.EditMazeParam(maze, mazeGenerate);
+                maze.EditMazeParam(mazeGenerate);
                 return Ok(maze);
             }
             catch
             {
                 return InternalServerError();
             }
-        }
-
-        private void EditMazeParam(MazeParam maze, Maze mazeGenerate)
-        {
-            maze.Name = mazeGenerate.Name;
-            maze.Rows = mazeGenerate.Rows;
-            maze.Cols = mazeGenerate.Cols;
-            maze.InitialPosRow = mazeGenerate.InitialPos.Row;
-            maze.InitialPosCol = mazeGenerate.InitialPos.Col;
-            maze.GoalPosRow = mazeGenerate.GoalPos.Row;
-            maze.GoalPosCol = mazeGenerate.GoalPos.Col;
-            JObject jmaze = JObject.Parse(mazeGenerate.ToJSON());
-            maze.MazePath = jmaze.GetValue("Maze").ToString();
         }
 
         [HttpGet]

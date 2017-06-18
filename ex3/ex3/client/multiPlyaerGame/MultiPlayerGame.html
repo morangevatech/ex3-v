@@ -15,7 +15,7 @@
     <div class="box-title">
         <div class="h2-left"><h2>Multiplayer Game</h2></div>
         <div id="loading-maze" class="loading" style="display:none">
-            <h4>Loading</h4>
+            <h4 id="lodaing-text">Loading</h4>
             <img src="../page/img/loading.gif" class="img-loading" />
         </div>
         <hr class="style1">
@@ -28,8 +28,7 @@
                 <div class="form-group row">
                     <label class="col-sm-2 col-form-label col-form-label-sm" for="text">Games</label>
                     <div class="dropdown col-sm-10">
-                        <select class="btn btn-secondary btn-sm">
-
+                        <select id="games" value="dropDown" onfocus="dropdownFocus()" class="btn btn-secondary btn-sm">
                         </select>
                     </div>
                 </div>
@@ -73,6 +72,14 @@
             </form>
         </div>
     </div>
+    <!--canvas-->
+    <div id="myCanvas" class="canvas-left" style="display:none">
+        <canvas id="mazeCanvas" width="370" height="370" style="border:0.5px black solid"></canvas>
+    </div>
+    <!--canvas-->
+    <div id="otherCanvas" class="canvas-left" style="display:none">
+        <canvas id="otherMazeCanvas" width="370" height="370" style="border:0.5px black solid"></canvas>
+    </div>
     <!--user not login-->
     <div id="not-connected" class="left-form" style="display:none">
         <h4 class="login">Log in to play multiplayer game</h4>
@@ -86,6 +93,7 @@
     <script src="../header/js/loadHeader.js"></script> 
     <script src="../../Scripts/jquery.signalR-2.2.2.js"></script>
     <script src="../../signalr/hubs"></script>
+    <script src="../page/js/jquery.multiMazeBoard.js"></script>
     <script src="../multiPlyaerGame/js/multiplayer.js"></script>
 </body>
 </html>

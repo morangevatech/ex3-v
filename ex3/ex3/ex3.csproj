@@ -175,11 +175,14 @@
     <Content Include="client\page\img\crown.svg" />
     <Content Include="client\page\img\jigglypuff.svg" />
     <Content Include="client\page\img\loading.gif" />
+    <Content Include="client\page\img\pikachu.svg" />
     <Content Include="client\page\img\pokeball.svg" />
     <Content Include="client\page\img\pokeballs.svg" />
     <Content Include="client\page\img\pokemon-go.svg" />
+    <Content Include="client\page\img\psyduck.svg" />
     <Content Include="client\page\js\jquery.mazeBoard.js" />
     <None Include="client\Scripts\jquery-3.1.1.intellisense.js" />
+    <Content Include="client\page\js\jquery.multiMazeBoard.js" />
     <Content Include="client\Scripts\jquery-3.1.1.js" />
     <Content Include="client\Scripts\jquery-3.1.1.min.js" />
     <Content Include="client\Scripts\jquery-3.1.1.slim.js" />

@@ -61,3 +61,8 @@
     margin-left:3%;
     padding-bottom:5%;
 }
+
+/*canvas*/
+.canvas-left{
+    display:inline-block;
+}

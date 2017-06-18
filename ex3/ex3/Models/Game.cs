@@ -29,7 +29,7 @@ namespace ex3.Models
         /// <param name="name">game name</param>
         /// <param name="maze">maze</param>
         /// <param name="player2">player one - socket</param>
-        public Game(string name, Maze mazeGame, TcpClient client)
+        public Game(string name, Maze mazeGame, string client)
         {
             this.Name = name;
             this.Maze = mazeGame;
@@ -52,7 +52,7 @@ namespace ex3.Models
         /// </summary>
         /// <param name="client">second player</param>
         /// <returns>true if added</returns>
-        public bool AddSecondPlayer(TcpClient client)
+        public bool AddSecondPlayer(string client)
         {
             if (this.playerTwo != null)
             {
@@ -67,7 +67,7 @@ namespace ex3.Models
         /// </summary>
         /// <param name="currentPlayer">current player</param>
         /// <returns>other player at game</returns>
-        public TcpClient GetOtherPlayer(TcpClient currentPlayer)
+        public string GetOtherPlayer(string currentPlayer)
         {
             if (currentPlayer.Equals(this.playerOne.Client))
             {
@@ -88,7 +88,7 @@ namespace ex3.Models
         /// disconnect player
         /// </summary>
         /// <param name="currentPlayer">current player</param>
-        public void DisConnectPlayer(TcpClient currentPlayer)
+        public void DisConnectPlayer(string currentPlayer)
         {
             if (currentPlayer.Equals(this.playerOne.Client))
                 this.playerOne.IsConnected = false;

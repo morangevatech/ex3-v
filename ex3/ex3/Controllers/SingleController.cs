@@ -12,15 +12,31 @@ using System.Web.Http;
 
 namespace ex3.Controllers
 {
+    /// <summary>
+    /// sigalplayer controller
+    /// </summary>
     public class SingleController : ApiController
     {
+        /// <summary>
+        /// the model
+        /// </summary>
         Model model;
 
+        /// <summary>
+        /// constructor
+        /// </summary>
         SingleController()
         {
             this.model = new Model();
         }
 
+        /// <summary>
+        /// generate maze
+        /// </summary>
+        /// <param name="name">maze name</param>
+        /// <param name="rows">rows</param>
+        /// <param name="cols">cols</param>
+        /// <returns></returns>
         [HttpGet]
         public IHttpActionResult GenerateMaze(string name, int rows, int cols)
         {
@@ -36,6 +52,12 @@ namespace ex3.Controllers
             }
         }
 
+        /// <summary>
+        /// solve maze
+        /// </summary>
+        /// <param name="name">name</param>
+        /// <param name="algo">algo</param>
+        /// <returns></returns>
         [HttpGet]
         public IHttpActionResult SolveMaze(string name, int algo)
         {
@@ -53,6 +75,13 @@ namespace ex3.Controllers
             }
         }
 
+        /// <summary>
+        /// edit solve param
+        /// </summary>
+        /// <param name="solve">solve param</param>
+        /// <param name="mazeSolve">maze solve</param>
+        /// <param name="name">maze name</param>
+        /// <param name="algo">algo</param>
         private void EditSolveParam(SolveParam solve, Solution<Position> mazeSolve, string name, int algo)
         {
             solve.Name = name;

@@ -1,8 +1,10 @@
 ﻿document.title = "Multiplayer Game";
+//local storage items to feilds
 $("#rows").val(localStorage.getItem("rows"));
 $("#cols").val(localStorage.getItem("cols"));
 
 (function ($) {
+    //when page upload
     $(document).ready(function () {
         if (sessionStorage.getItem('loginSession')) {
             hideNotLogin();
@@ -14,8 +16,10 @@ $("#cols").val(localStorage.getItem("cols"));
         }
     })
 
+    //connect to multuplayerhub
     var multiplayer = $.connection.multiplayerHub;
 
+    //recive maze from hub
     multiplayer.client.broadcastMaze = function (maze) {
         document.title = maze.Name;
         var mazecanvas = document.getElementById("mazeCanvas");     
@@ -28,6 +32,7 @@ $("#cols").val(localStorage.getItem("cols"));
         mazecanvas.focus();
     };
 
+    //recive loss msg from hub
     multiplayer.client.broadcastLoss = function () {
         $("#mazeCanvas").PlayerLoss();
         var username = sessionStorage.getItem('loginSession');
@@ -36,11 +41,13 @@ $("#cols").val(localStorage.getItem("cols"));
         multiplayer.server.close(mazename);
     };
 
+    //recive error msg from hub
     multiplayer.client.error = function (msg) {
         hideLoading();
         alert(msg);
     };
 
+    //recive play move from hub 
     multiplayer.client.broadcastMove = function (move) {
         var otherMaze = $("#otherMazeCanvas");
         switch (move) {
@@ -59,7 +66,9 @@ $("#cols").val(localStorage.getItem("cols"));
         }
     };
 
+    //start connection to hub
     $.connection.hub.start().done(function () {
+        //click on start game button
         $("#btnStartGame").click(function () {
             if (!startValid()) {
                 return false;
@@ -74,6 +83,7 @@ $("#cols").val(localStorage.getItem("cols"));
             multiplayer.server.start(name, rows, cols);
         });
 
+        //click on join game button
         $("#btnJoinGame").click(function () {
             var gameSelected = $("#games").val();
             if (!gameSelected) {
@@ -87,23 +97,27 @@ $("#cols").val(localStorage.getItem("cols"));
         })
     });
 
+    //focus on name field 
     $("#name").focus(function () {
         document.getElementById("name-div").className = "form-group row";
         document.getElementById("name").className = "form-control form-control-sm";
     })
 
+    //focus on rows field
     $("#rows").focus(function () {
         document.getElementById("rows-div").className = "form-group row";
         document.getElementById("rows").className = "form-control form-control-sm";
         $("#errorRowsRange").hide();
     })
 
+    //focus on cols field
     $("#cols").focus(function () {
         document.getElementById("cols-div").className = "form-group row";
         document.getElementById("cols").className = "form-control form-control-sm";
         $("#errorColsRange").hide();
     })
 
+    //check name field validation
     function checkNameValid() {
         if (!$("#name").val()) {
             document.getElementById("name-div").className = "form-group row has-danger";
@@ -113,6 +127,7 @@ $("#cols").val(localStorage.getItem("cols"));
         return true;
     };
 
+    //check rows field validation
     function checkRowsValid() {
         if (!$("#rows").val() || $("#rows").val() < 1 || $("#rows").val() > 100) {
             document.getElementById("rows-div").className = "form-group row has-danger";
@@ -123,6 +138,7 @@ $("#cols").val(localStorage.getItem("cols"));
         return true;
     };
 
+    //check cols field validation
     function checkColsValid() {
         if (!$("#cols").val() || $("#cols").val() < 1 || $("#cols").val() > 100) {
             document.getElementById("cols-div").className = "form-group row has-danger";
@@ -133,6 +149,7 @@ $("#cols").val(localStorage.getItem("cols"));
         return true;
     };
 
+    //check start form validation
     function startValid() {
         var nameValid = checkNameValid();
         var rowsValid = checkRowsValid();
@@ -143,34 +160,42 @@ $("#cols").val(localStorage.getItem("cols"));
         return true;
     }
 
+    //show option div
     function showOptions() {
         $("#option-div").show();
     }
 
+    //show loading
     function showLoading() {
         $("#loading-maze").show();
     }
 
+    //hide loading
     function hideLoading() {
         $("#loading-maze").hide();
     }
 
+    //change loading txt
     function LoadingTxt(txt) {
         document.getElementById("lodaing-text").innerHTML = txt;
     }
 
+    //show menu of multiplayer
     function showMenuMulti() {
         $("#from-multi").show();
     }
 
+    //hide menu of multiplayer
     function hideMenuMulti() {
         $("#from-multi").hide();
     }
 
+    //show need to login div
     function showNotLogin() {
         $("#not-connected").show();
     }
 
+    //hide need to login div
     function hideNotLogin() {
         $("#not-connected").hide();
     }
@@ -181,17 +206,20 @@ $("#cols").val(localStorage.getItem("cols"));
         $("#otherCanvas").show();
     }
 
+    //disabled join to game
     function disabledJoin() {
         document.getElementById("btnJoinGame").disabled = true;
         document.getElementById("games").disabled = true;
     }
 
+    //enable join to game
     function enableJoin() {
         document.getElementById("btnJoinGame").disabled = false;
         document.getElementById("games").disabled = false;
     }
 })(jQuery);
 
+//put values from server in games to join
 function dropdownFocus() {
     var apiUrl = "../../api/Multiplayer/ListGame";
     $.get(apiUrl)

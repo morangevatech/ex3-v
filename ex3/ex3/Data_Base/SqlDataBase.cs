@@ -10,18 +10,42 @@ using Newtonsoft.Json;
 
 namespace ex3.Data_Base
 {
+    /// <summary>
+    /// sql data base class
+    /// </summary>
     public class SqlDataBase
     {
+        /// <summary>
+        /// sql connection
+        /// </summary>
         SqlConnection conn;
+
+        /// <summary>
+        /// sql data reader
+        /// </summary>
         SqlDataReader reader;
+
+        /// <summary>
+        /// sql command
+        /// </summary>
         SqlCommand cmd;
 
+        /// <summary>
+        /// constructor
+        /// </summary>
         public SqlDataBase()
         {
             this.conn = new SqlConnection(@"Data Source = (LocalDB)\MSSQLLocalDB; AttachDbFilename = |DataDirectory|DB.mdf; Integrated Security = True");            this.reader = null;
             this.cmd = null;
         }
 
+        /// <summary>
+        /// add user to db
+        /// </summary>
+        /// <param name="username">username</param>
+        /// <param name="password">password</param>
+        /// <param name="email">email</param>
+        /// <param name="salt">salt</param>
         public void AddUserToDB(string username, string password,string email, string salt)
         {
             try
@@ -39,6 +63,12 @@ namespace ex3.Data_Base
             }
         }
 
+        /// <summary>
+        /// add user to ranking table
+        /// </summary>
+        /// <param name="username">username</param>
+        /// <param name="wins">wins</param>
+        /// <param name="losses">losses</param>
         public void CreateUserInRankigsTableDB(string username, int wins, int losses)
         {
             try
@@ -57,6 +87,10 @@ namespace ex3.Data_Base
             }
         }
 
+        /// <summary>
+        /// update win by user
+        /// </summary>
+        /// <param name="id">user id</param>
         public void UpdateWinsByUser(int id)
         {
             try
@@ -74,6 +108,10 @@ namespace ex3.Data_Base
             }
         }
 
+        /// <summary>
+        /// update loss by user id
+        /// </summary>
+        /// <param name="id">user id</param>
         public void UpdateLossesByUser(int id)
         {
             try
@@ -91,6 +129,11 @@ namespace ex3.Data_Base
             }
         }
 
+        /// <summary>
+        /// check if user exist in db
+        /// </summary>
+        /// <param name="username">user name</param>
+        /// <returns></returns>
         public int CheckIfUsernameExist(string username)
         {
             try
@@ -112,6 +155,11 @@ namespace ex3.Data_Base
             }
         }
 
+        /// <summary>
+        /// get user id by username
+        /// </summary>
+        /// <param name="username">username</param>
+        /// <returns>user id</returns>
         public int GetUserIdByName(string username)
         {
             try
@@ -133,6 +181,11 @@ namespace ex3.Data_Base
             }
         }
 
+        /// <summary>
+        /// get wins number by user id
+        /// </summary>
+        /// <param name="id">user id</param>
+        /// <returns>wins number</returns>
         public int GetWinsByUserID(int id)
         {
             try
@@ -154,6 +207,11 @@ namespace ex3.Data_Base
             }
         }
 
+        /// <summary>
+        /// get losses number by user id
+        /// </summary>
+        /// <param name="id">user id</param>
+        /// <returns>losses number</returns>
         public int GetLossesByUserID(int id)
         {
             try
@@ -175,6 +233,12 @@ namespace ex3.Data_Base
             }
         }
 
+        /// <summary>
+        /// check passwords equals
+        /// </summary>
+        /// <param name="username">username</param>
+        /// <param name="password">password</param>
+        /// <returns>true if equals, otherwise false</returns>
         public bool checkPassword(string username, string password)
         {
             try
@@ -202,6 +266,10 @@ namespace ex3.Data_Base
             }
         }
 
+        /// <summary>
+        /// get ranking data
+        /// </summary>
+        /// <returns>ranking data</returns>
         public List<UserRank> getRankingData()
         {
             try
@@ -229,6 +297,9 @@ namespace ex3.Data_Base
             }
         }
 
+        /// <summary>
+        /// close connection to db
+        /// </summary>
         public void Close()
         {
             if (this.reader != null)
@@ -238,6 +309,9 @@ namespace ex3.Data_Base
         }
     }
 
+    /// <summary>
+    /// class user rank
+    /// </summary>
     public class UserRank
     {
         public int Id { get; set; }

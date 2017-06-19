@@ -9,8 +9,14 @@ namespace ex3.Models
 {
     public class Game
     {
+        /// <summary>
+        /// player one
+        /// </summary>
         Player playerOne;
 
+        /// <summary>
+        /// player two
+        /// </summary>
         Player playerTwo;
 
         /// <summary>

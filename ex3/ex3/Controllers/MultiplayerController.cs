@@ -10,15 +10,28 @@ using System.Web.Http.Description;
 
 namespace ex3.Controllers
 {
+    /// <summary>
+    /// multiplayer controller
+    /// </summary>
     public class MultiplayerController : ApiController
     {
+        /// <summary>
+        /// the model
+        /// </summary>
         Model model;
 
+        /// <summary>
+        /// constructor
+        /// </summary>
         MultiplayerController()
         {
             this.model = new Model();
         }
 
+        /// <summary>
+        /// get list of gamed to join
+        /// </summary>
+        /// <returns>IHttpActionResult</returns>
         [HttpGet]
         public IHttpActionResult ListGame()
         {

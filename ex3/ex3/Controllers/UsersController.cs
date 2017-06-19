@@ -9,15 +9,29 @@ using System.Web.Helpers;
 
 namespace ex3.Controllers
 {
+    /// <summary>
+    /// class users controller 
+    /// </summary>
     public class UsersController : ApiController
     {
+        /// <summary>
+        /// data base class
+        /// </summary>
         SqlDataBase db;
 
+        /// <summary>
+        /// constructor
+        /// </summary>
         public UsersController()
         {
             this.db = new SqlDataBase();
         }
 
+        /// <summary>
+        /// add user to db
+        /// </summary>
+        /// <param name="register">register</param>
+        /// <returns>IHttpActionResult</returns>
         [HttpPost()]
         [Route("api/Users/AddUser")]
         public IHttpActionResult AddUser(Register register)
@@ -39,6 +53,11 @@ namespace ex3.Controllers
             }
         }
 
+        /// <summary>
+        /// login user
+        /// </summary>
+        /// <param name="login">login</param>
+        /// <returns>IHttpActionResult</returns>
         [HttpPost()]
         [Route("api/Users/LoginUser")]
         public IHttpActionResult LoginUser(Login login)
@@ -59,6 +78,10 @@ namespace ex3.Controllers
             }
         }
 
+        /// <summary>
+        /// user rank
+        /// </summary>
+        /// <returns>IHttpActionResult</returns>
         [HttpGet]
         [Route("api/Users/UsersRank")]
         public IHttpActionResult UsersRank()
@@ -73,6 +96,7 @@ namespace ex3.Controllers
         }
     }
 
+    //class register
     public class Register
     {
         public string Username { get; set; }
@@ -80,6 +104,7 @@ namespace ex3.Controllers
         public string Email { get; set; }
     }
 
+    //class login
     public class Login
     {
         public string Username { get; set; }

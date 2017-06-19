@@ -127,7 +127,6 @@
         
         //left arrow pressed
         function leftArrowPressed() {
-        //$.fn.leftArrowPressed=function(){
             if (currntStateCol - 1 >= 0 && maze.MazePath[currntStateRow * cols + (currntStateCol - 1)] == 0)
             {
                 clearPlayer();
@@ -139,7 +138,6 @@
 
         //right arrow pressed
         function rightArrowPressed() {
-        //$.fn.rightArrowPressed = function () {
             if (currntStateCol + 1 <= cols - 1 && maze.MazePath[currntStateRow * cols + (currntStateCol + 1)] == 0)
             {
                 clearPlayer();
@@ -151,7 +149,6 @@
 
         //up arrow pressed
         function upArrowPressed() {
-        //$.fn.upArrowPressed = function () {
             if (currntStateRow - 1 >= 0 && maze.MazePath[(currntStateRow - 1) * cols + currntStateCol] == 0)
             {
                 clearPlayer();
@@ -163,7 +160,6 @@
 
         //down arrow pressed
         function downArrowPressed() {
-        //$.fn.downArrowPressed = function () {
             if (currntStateRow + 1 <= rows - 1 && maze.MazePath[(currntStateRow + 1) * cols + currntStateCol] == 0) {
                 clearPlayer();
                 currntStateRow += 1;
@@ -179,7 +175,7 @@
         };
     };
 
-
+    //maze board of the second player 
     $.fn.otherMazeBoard = function (maze) {
         var myCanvas = this[0];
         var context = myCanvas.getContext("2d");
